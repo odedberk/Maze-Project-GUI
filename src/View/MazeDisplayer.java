@@ -1,5 +1,6 @@
 package View;
 
+import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
@@ -12,7 +13,7 @@ import java.io.FileNotFoundException;
 
 public class MazeDisplayer extends Canvas {
 
-    private int [][] maze;
+    private Maze maze;
 
     private int row_player =0;
     private int col_player =0;
@@ -54,7 +55,7 @@ public class MazeDisplayer extends Canvas {
     }
 
 
-    public void drawMaze(int [][] maze)
+    public void drawMaze(Maze maze)
     {
         this.maze = maze;
         draw();
@@ -62,6 +63,7 @@ public class MazeDisplayer extends Canvas {
 
     public void draw()
     {
+        int[][] maze = this.maze.getMaze();
         if( maze!=null)
         {
             double canvasHeight = getHeight();
@@ -72,42 +74,39 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth/col;
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,canvasWidth,canvasHeight);
-            graphicsContext.setFill(Color.RED);
-            double w,h;
+            double x,y;
             //Draw Maze
-            Image wallImage = null;
-            try {
-                wallImage = new Image(new FileInputStream(getImageFileNameWall()));
-            } catch (FileNotFoundException e) {
-                System.out.println("There is no file....");
-            }
             for(int i=0;i<row;i++)
             {
                 for(int j=0;j<col;j++)
                 {
                     if(maze[i][j] == 1) // Wall
                     {
-                        h = i * cellHeight;
-                        w = j * cellWidth;
-                        if (wallImage == null){
-                            graphicsContext.fillRect(w,h,cellWidth,cellHeight);
-                        }else{
-                            graphicsContext.drawImage(wallImage,w,h,cellWidth,cellHeight);
-                        }
+                        graphicsContext.setFill(Color.BLACK);
+                        x = i *cellHeight;
+                        y = j *  cellWidth;
+                        graphicsContext.fillRect(x,y,cellHeight,cellWidth);
+
+                    }
+                    if(maze[i][j] == 2) // Start
+                    {
+                        graphicsContext.setFill(Color.RED);
+
+                        x = i *cellHeight;
+                        y = j *  cellWidth;
+                        graphicsContext.fillRect(x,y,cellHeight,cellWidth);
+                    }
+                    if(maze[i][j] == 3) // End
+                    {
+                        graphicsContext.setFill(Color.GREEN);
+
+                        x = i *cellHeight;
+                        y = j *  cellWidth;
+                        graphicsContext.fillRect(x,y,cellHeight,cellWidth);
                     }
 
                 }
             }
-
-            double h_player = getRow_player() * cellHeight;
-            double w_player = getCol_player() * cellWidth;
-            Image playerImage = null;
-            try {
-                playerImage = new Image(new FileInputStream(getImageFileNamePlayer()));
-            } catch (FileNotFoundException e) {
-                System.out.println("There is no Image player....");
-            }
-            graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
         }
     }
