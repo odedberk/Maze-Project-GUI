@@ -19,6 +19,7 @@ public class MyViewController implements IView{
     }
 
     public void saveGame(ActionEvent actionEvent) {
+
     }
 
     public void showProperties(ActionEvent actionEvent) {
