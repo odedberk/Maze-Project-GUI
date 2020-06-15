@@ -40,7 +40,7 @@ public class MazeDisplayer extends Canvas {
     }
 
     public void setImageFileGoal(String imageFileGoal) {
-        this.imageFileNameWall.set(imageFileGoal);
+        this.imageFileGoal.set(imageFileGoal);
     }
 
     public int getRow_player() {
@@ -116,18 +116,18 @@ public class MazeDisplayer extends Canvas {
             }
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
-//            if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()-1){
-//                double h_goal = (maze.getMaze().length-1) *cellHeight;
-//                double w_goal = (maze.getMaze()[0].length-1) *  cellWidth;
-//                Image goalImage = null;
-//                try {
-//                    goalImage=new Image(new FileInputStream(getImageFileGoal()));
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                graphicsContext.drawImage(goalImage,w_goal,h_goal,cellWidth, cellHeight);
-//
-//            }
+            if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()-1){
+                double h_goal = (maze.getMaze().length-1) *cellHeight;
+                double w_goal = (maze.getMaze()[0].length-1) *  cellWidth;
+                Image goalImage = null;
+                try {
+                    goalImage=new Image(new FileInputStream(getImageFileGoal()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                graphicsContext.drawImage(goalImage,w_goal,h_goal,cellWidth, cellHeight);
+
+            }
         }
     }
 }
