@@ -78,6 +78,7 @@ public class MyViewController implements IView{
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
             generateMaze();
+
     }
 
     public void generateMaze(){
@@ -87,6 +88,7 @@ public class MyViewController implements IView{
         int cols = size[2];
         Maze newMaze = this.mazeGenerator.generate(rows,cols);
         mazeDisplayer.drawMaze(newMaze);
+
     }
 
 
