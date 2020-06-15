@@ -43,6 +43,8 @@ public class MyViewController implements IView{
     public void showAbout(ActionEvent actionEvent) {
         System.out.println("Git");
         System.out.println("Git");
+        System.out.println("Git");
+
 
     }
 
