@@ -34,6 +34,10 @@ public class MyViewController implements IView{
 
     public void generatorSettings(ActionEvent actionEvent) {
         Stage settings = new Stage();
+        settings.setMinWidth(250);
+        settings.setMinHeight(350);
+        settings.setResizable(false);
+        settings.setOpacity(0.9);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorView.fxml"));
         Parent root = fxml.getRoot();
         try {
@@ -49,8 +53,7 @@ public class MyViewController implements IView{
         settings.setScene(new Scene(root));
         settings.initModality(Modality.WINDOW_MODAL);
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
-        settings.showAndWait();
-
+        settings.show();
         System.out.println(size[0]+ ", " + size[1]);
 
 

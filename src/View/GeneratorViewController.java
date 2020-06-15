@@ -27,14 +27,14 @@ public class GeneratorViewController {
         });
 
         rowsField.textProperty().addListener((observable, oldValue, newValue) -> {
-            rowSlider.setValue(!newValue.isEmpty()? Double.valueOf(newValue): rowSlider.getMin() );
+            rowSlider.setValue(!newValue.isEmpty()? Double.valueOf(newValue): rowSlider.getMin());
         });
 
         colSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             colsField.setText(String.valueOf(newValue.intValue()));
         });
         colsField.textProperty().addListener((observable, oldValue, newValue) -> {
-            colSlider.setValue(!newValue.isEmpty()? Double.valueOf(newValue): colSlider.getMin() );
+            colSlider.setValue(!newValue.isEmpty()? Double.valueOf(newValue): colSlider.getMin());
         });
 
 //        rowsField.textProperty().bindBidirectional(rowSlider.valueProperty(), NumberFormat.getIntegerInstance());

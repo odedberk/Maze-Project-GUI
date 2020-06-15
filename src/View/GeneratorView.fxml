@@ -30,7 +30,7 @@
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="225.0" text="Number of rows" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="rowsField" alignment="CENTER" prefHeight="25.0" prefWidth="134.0" promptText="2" text="10" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
             <Slider fx:id="rowSlider" max="500.0" min="2.0" prefHeight="14.0" prefWidth="188.0" snapToTicks="true" value="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Number of columns" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="181.0" text="Number of columns" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="colsField" alignment="CENTER" promptText="2" text="10" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Slider fx:id="colSlider" blockIncrement="100.0" max="500.0" min="2.0" prefHeight="14.0" prefWidth="188.0" value="10.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#sendValues" prefHeight="25.0" prefWidth="176.0" text="Let's Fish!" GridPane.columnIndex="1" GridPane.rowIndex="10" />
