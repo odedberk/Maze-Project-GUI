@@ -16,26 +16,22 @@ import java.io.IOException;
 public class MyViewController implements IView{
 
     public void loadGame(ActionEvent actionEvent) {
-
     }
 
     public void saveGame(ActionEvent actionEvent) {
-
     }
 
     public void showProperties(ActionEvent actionEvent) {
-
     }
 
     public void showAbout(ActionEvent actionEvent) {
-
     }
 
     public void exitProgram(){
         System.exit(0);
     }
 
-    public void generatorSettings(ActionEvent actionEvent) {
+    public void createGame(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
         settings.setMinHeight(350);
@@ -57,8 +53,11 @@ public class MyViewController implements IView{
         settings.initModality(Modality.WINDOW_MODAL);
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.show();
-        System.out.println(size[0]+ ", " + size[1]);
 
+        //GENERATE MAZE WITH int[] VALUES
+        System.out.println(size[0]+ ", " + size[1]);
     }
+
+
 
 }

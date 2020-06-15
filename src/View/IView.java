@@ -8,5 +8,5 @@ public interface IView {
     void saveGame(ActionEvent actionEvent);
     void showProperties(ActionEvent actionEvent);
     void showAbout(ActionEvent actionEvent);
-
+    void createGame(ActionEvent actionEvent);
 }
