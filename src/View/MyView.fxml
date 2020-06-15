@@ -46,7 +46,7 @@
    <center>
        <Pane BorderPane.alignment="CENTER">
            <children>
-               <MazeDisplayer fx:id="mazeDisplayer" height="399.0" imageFileNamePlayer="resources/Images/player.png" imageFileNameWall="resources/Images/wall.png" imageFileGoal="resources/Images/fish.PNG" layoutX="10.0" onKeyPressed="#keyPressed" width="390.0" />
+               <MazeDisplayer fx:id="mazeDisplayer" height="399.0" imageFileNamePlayer="resources/Images/cat.png" imageFileNameWall="resources/Images/wall.png" imageFileGoal="resources/Images/goldFish.PNG" layoutX="10.0" onKeyPressed="#keyPressed" width="390.0" />
            </children>
            <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
