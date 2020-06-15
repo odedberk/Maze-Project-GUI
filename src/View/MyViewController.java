@@ -31,7 +31,7 @@ public class MyViewController implements IView{
         System.exit(0);
     }
 
-    public void generatorSettings(ActionEvent actionEvent) {
+    public void createGame(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
         settings.setMinHeight(350);
@@ -53,9 +53,11 @@ public class MyViewController implements IView{
         settings.initModality(Modality.WINDOW_MODAL);
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.show();
+
+        //GENERATE MAZE WITH int[] VALUES
         System.out.println(size[0]+ ", " + size[1]);
-
-
     }
+
+
 
 }
