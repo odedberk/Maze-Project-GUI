@@ -82,6 +82,7 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.setFill(Color.RED);
             double w,h;
             //Draw Maze
+
             Image wallImage = null;
             try {
                 wallImage = new Image(new FileInputStream(getImageFileNameWall()));
