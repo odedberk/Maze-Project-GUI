@@ -78,6 +78,7 @@ public class MyViewController implements IView{
         int cols = size[2];
         Maze newMaze = this.mazeGenerator.generate(rows,cols);
         mazeDisplayer.drawMaze(newMaze);
+
     }
 
 
