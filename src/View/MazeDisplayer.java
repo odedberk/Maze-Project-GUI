@@ -62,7 +62,9 @@ public class MazeDisplayer extends Canvas {
     public void drawMaze(Maze maze)
     {
         this.maze = maze;
-
+        setImageFileNameWall("C:\\Users\\eilam gal\\IdeaProjects\\ATP-Project-PartC\\resources\\Images\\wall.PNG");
+        setImageFileNamePlayer("C:\\Users\\eilam gal\\IdeaProjects\\ATP-Project-PartC\\resources\\Images\\\u200F\u200Fdudu.PNG");
+        setImageFileGoal("C:\\Users\\eilam gal\\IdeaProjects\\ATP-Project-PartC\\resources\\Images\\fish.PNG");
         playerPosition[0]=maze.getStartPosition().getRowIndex();
         playerPosition[1]=maze.getStartPosition().getColumnIndex();
         draw();
