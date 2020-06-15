@@ -44,7 +44,7 @@
       <Insets top="1.0" />
    </padding>
    <center>
-      <Canvas height="599.0" width="689.0" BorderPane.alignment="CENTER">
+      <Canvas id="MazeDisplayer" height="599.0" width="689.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
          </BorderPane.margin>
