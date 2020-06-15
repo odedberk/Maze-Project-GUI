@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="@ViewStyle.css" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="616.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <top>
       <VBox prefHeight="6.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -35,11 +36,18 @@
    <left>
       <AnchorPane prefHeight="220.0" prefWidth="93.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="21.0" layoutY="69.0" mnemonicParsing="false" onAction="#generatorSettings" text="New Maze" />
+            <Button layoutX="15.0" layoutY="72.0" mnemonicParsing="false" onAction="#generatorSettings" prefHeight="23.0" prefWidth="71.0" text="New Maze" />
          </children>
       </AnchorPane>
    </left>
    <padding>
       <Insets top="1.0" />
    </padding>
+   <center>
+      <Canvas height="599.0" width="689.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </Canvas>
+   </center>
 </BorderPane>
