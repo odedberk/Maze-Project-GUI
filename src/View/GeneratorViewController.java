@@ -43,20 +43,22 @@ public class GeneratorViewController {
     }
 
     public void sendValues(ActionEvent actionEvent) {
-        size[0] = Integer.parseInt(!rowsField.getText().isEmpty()? rowsField.getText() : "2");
-        size[1] = Integer.parseInt(!colsField.getText().isEmpty()? colsField.getText() : "2");
-        if (size[0]<=1 || size[1]<=1) {
+        size[0] = 1;
+        size[1] = Integer.parseInt(!rowsField.getText().isEmpty()? rowsField.getText() : "2");
+        size[2] = Integer.parseInt(!colsField.getText().isEmpty()? colsField.getText() : "2");
+        if (size[1]<=1 || size[2]<=1) {
             new Alert(Alert.AlertType.WARNING, "Rows and columns has to be at least 2!").show();
             colsField.setText("10");
             rowsField.setText("10");
             return;
         }
-        if (size[0]>500 || size[1]>500) {
+        if (size[1]>500 || size[2]>500) {
             new Alert(Alert.AlertType.WARNING, "Rows and columns can not exceed 500!").show();
             colsField.setText("10");
             rowsField.setText("10");
             return;
         }
+
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 

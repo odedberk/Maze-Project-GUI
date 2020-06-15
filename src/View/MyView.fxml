@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import View.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -44,10 +44,13 @@
       <Insets top="1.0" />
    </padding>
    <center>
-      <Canvas id="MazeDisplayer" height="599.0" width="689.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-         </BorderPane.margin>
-      </Canvas>
+       <Pane BorderPane.alignment="CENTER">
+           <children>
+               <MazeDisplayer fx:id="mazeDisplayer" height="541.0" layoutX="17.0" layoutY="20.0" width="671.0" />
+           </children>
+           <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+           </padding>
+       </Pane>
    </center>
 </BorderPane>
