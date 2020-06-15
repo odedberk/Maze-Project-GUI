@@ -22,14 +22,14 @@ public class MyViewController implements IView{
     private AMazeGenerator mazeGenerator;
     public MazeDisplayer mazeDisplayer;
 
-    public MyViewController( AMazeGenerator mazeGenerator, MazeDisplayer mazeDisplayer) {
-        this.mazeGenerator = mazeGenerator;
-        this.mazeDisplayer = mazeDisplayer;
-        this.mazeDisplayer.setImageFileNameWall("C:\\Users\\eilam gal\\IdeaProjects\\ATP-Project-PartC\\resources\\Images\\wall.PNG");
-        this.mazeDisplayer.setImageFileNamePlayer("C:\\Users\\eilam gal\\IdeaProjects\\ATP-Project-PartC\\resources\\Images\\\u200F\u200Fdudu.PNG");
-        this.mazeDisplayer.setImageFileGoal("C:\\Users\\eilam gal\\IdeaProjects\\ATP-Project-PartC\\resources\\Images\\fish.PNG");
-
-    }
+//    public MyViewController( AMazeGenerator mazeGenerator, MazeDisplayer mazeDisplayer) {
+//        this.mazeGenerator = mazeGenerator;
+//        this.mazeDisplayer = mazeDisplayer;
+//        this.mazeDisplayer.setImageFileNameWall("resources\\Images\\wall.PNG");
+//        this.mazeDisplayer.setImageFileNamePlayer("resources\\Images\\\u200F\u200Fdudu.PNG");
+//        this.mazeDisplayer.setImageFileGoal("resources\\Images\\fish.PNG");
+//
+//    }
 
     public void loadGame(ActionEvent actionEvent) {
     }
