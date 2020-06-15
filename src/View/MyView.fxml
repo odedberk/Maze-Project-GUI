@@ -4,32 +4,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@ViewStyle.css" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <VBox prefHeight="6.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar id="menuBar">
+              <menus>
+                <Menu id="fileMenu" text="_File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Options">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#showProperties" text="Properties" />
+                    </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
    </top>
    <left>
-      <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER_LEFT">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></Button>
+      <AnchorPane prefHeight="220.0" prefWidth="93.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="21.0" layoutY="69.0" mnemonicParsing="false" onAction="#generatorSettings" text="New Maze" />
+         </children>
+      </AnchorPane>
    </left>
+   <padding>
+      <Insets top="1.0" />
+   </padding>
 </BorderPane>
