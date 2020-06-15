@@ -17,8 +17,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setMinHeight(500);
-        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(700);
+        primaryStage.setMinWidth(1000);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
         MyViewController viewController = loader.getController();

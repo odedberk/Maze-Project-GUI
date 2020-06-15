@@ -19,7 +19,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MyViewController implements IView{
-    private int[] size;
+    private int[] size = new int[3];
+    ;
     private AMazeGenerator mazeGenerator;
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
@@ -59,10 +60,9 @@ public class MyViewController implements IView{
             e.printStackTrace();
         }
         GeneratorViewController generator = fxml.getController();
-        size = new int[3];
         size[0]=0; //flag indicating new game is wanted
-        size[1]=10; //Set default values
-        size[2]=10;
+//        size[1]=10; //Set default values
+//        size[2]=10;
         generator.setSize(size);
         settings.setTitle("Set maze size");
         settings.setScene(new Scene(root));
