@@ -16,6 +16,7 @@ import java.io.IOException;
 public class MyViewController implements IView{
 
     public void loadGame(ActionEvent actionEvent) {
+
     }
 
     public void saveGame(ActionEvent actionEvent) {
@@ -23,9 +24,11 @@ public class MyViewController implements IView{
     }
 
     public void showProperties(ActionEvent actionEvent) {
+
     }
 
     public void showAbout(ActionEvent actionEvent) {
+
     }
 
     public void exitProgram(){
@@ -55,7 +58,6 @@ public class MyViewController implements IView{
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.show();
         System.out.println(size[0]+ ", " + size[1]);
-
 
     }
 
