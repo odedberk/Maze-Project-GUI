@@ -14,13 +14,14 @@ import java.util.Properties;
 public class MyModel extends Observable implements IModel {
     private Server generatorServer;
     private Server solverServer;
+    private int[] charPosition;
 
     public MyModel (Server generator, Server solver){
         generatorServer=generator;
         solverServer=solver;
-
         generatorServer.start();
         solverServer.start();
+        charPosition=new int[2];
     }
 
     @Override
