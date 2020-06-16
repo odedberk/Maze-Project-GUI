@@ -8,6 +8,7 @@ import View.MyViewController;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -26,15 +27,15 @@ public class Main extends Application {
         MyModel myModel= new MyModel(mazeGeneratingServer,mazeSolvingServer);
         primaryStage.setOnCloseRequest(event ->  myModel.closeProgram());
 
-        primaryStage.setMinHeight(700);
-        primaryStage.setMinWidth(850);
-        primaryStage.setResizable(false);
+        primaryStage.setMinHeight(450);
+        primaryStage.setMinWidth(550);
+        primaryStage.setResizable(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
         MyViewController viewController = loader.getController();
         viewController.setViewModel(new MyViewModel(myModel));
         primaryStage.setTitle("The Maze");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 350, 500));
         primaryStage.show();
     }
 
