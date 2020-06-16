@@ -14,4 +14,5 @@ public interface IModel {
     Properties getAbout();
     Solution getSolution(ISearchable searchable);
 
+    void closeProgram();
 }

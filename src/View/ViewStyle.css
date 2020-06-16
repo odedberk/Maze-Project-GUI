@@ -1,5 +1,5 @@
 .root{
-    -fx-background-color: #ecff67;
+    -fx-background-color: linear-gradient(#f5ff71,#ecff67,#7fbe02);
 }
 
 Button {
@@ -18,4 +18,9 @@ Button:hover{
     -fx-text-fill: -fx-text-base-color;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
+}
+MenuBar{
+    -fx-background-color: linear-gradient(#f5ff71,#b6ff25);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
 }

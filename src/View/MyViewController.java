@@ -42,7 +42,7 @@ public class MyViewController implements IView{
     }
 
     public void exitProgram(){
-        System.exit(0);
+        viewModel.closeProgram();
     }
 
     public void createGame(ActionEvent actionEvent) {
@@ -50,7 +50,7 @@ public class MyViewController implements IView{
         settings.setMinWidth(250);
         settings.setMinHeight(350);
         settings.setResizable(false);
-        settings.setOpacity(0.9);
+        settings.setOpacity(0.97);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorView.fxml"));
         Parent root = null;
         try {
@@ -78,7 +78,7 @@ public class MyViewController implements IView{
     }
 
     public void generateMaze(){
-        Maze maze = viewModel.generateMaze(size[1],size[2]);
+        Maze maze = viewModel.getMaze(size[1],size[2]);
         mazeDisplayer.drawMaze(maze);
     }
 

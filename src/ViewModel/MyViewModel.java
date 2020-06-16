@@ -9,14 +9,17 @@ import algorithms.search.SearchableMaze;
 
 public class MyViewModel {
     private IModel model;
-    private SearchableMaze maze;
 
     public MyViewModel(IModel model) {
         this.model = model;
     }
 
-    public Maze generateMaze(int row, int col){
-        maze=(SearchableMaze)model.generateGame(row,col);
+    public Maze getMaze(int row, int col){
+        SearchableMaze maze=(SearchableMaze)model.generateGame(row,col);
         return maze.getMaze();
+    }
+
+    public void closeProgram() {
+        model.closeProgram();
     }
 }
