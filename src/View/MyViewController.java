@@ -70,7 +70,7 @@ public class MyViewController implements IView{
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.showAndWait();
 
-        //GENERATE MAZE WITH int[] VALUES
+        //GENERATE MAZE WITH INPUT VALUES
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
             generateMaze();
