@@ -44,13 +44,16 @@
       <Insets top="1.0" />
    </padding>
    <center>
-       <Pane BorderPane.alignment="CENTER">
+       <Pane>
            <children>
-               <MazeDisplayer fx:id="mazeDisplayer" height="399.0" imageFileNamePlayer="resources/Images/player.png" imageFileNameWall="resources/Images/wall.png" imageFileGoal="resources/Images/fish.PNG" layoutX="10.0" onKeyPressed="#keyPressed" width="390.0" />
+               <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat.png" imageFileNameWall="resources/Images/wall.png" layoutX="10.0" onKeyPressed="#keyPressed" width="691.0" />
            </children>
            <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
            </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
        </Pane>
    </center>
 </BorderPane>

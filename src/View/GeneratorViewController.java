@@ -22,6 +22,10 @@ public class GeneratorViewController {
     public int[] size;
 
     public void initialize() {
+        if (size!=null) {
+            rowSlider.setValue(size[1]);
+            colSlider.setValue(size[2]);
+        }
         rowSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             rowsField.setText(String.valueOf(newValue.intValue()));
         });

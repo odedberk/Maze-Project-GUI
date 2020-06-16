@@ -86,7 +86,7 @@ public class MazeDisplayer extends Canvas {
             try {
                 wallImage = new Image(new FileInputStream(getImageFileNameWall()));
             } catch (FileNotFoundException e) {
-                System.out.println("There is no file....");
+                System.out.println("There is no wall image!");
             }
             for(int i=0;i<row;i++)
             {
@@ -112,18 +112,19 @@ public class MazeDisplayer extends Canvas {
             try {
                 playerImage = new Image(new FileInputStream(getImageFileNamePlayer()));
             } catch (FileNotFoundException e) {
-                System.out.println("There is no Image player....");
+                System.out.println("There is no player image!");
             }
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
             if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()-1){
-                double h_goal = (maze.getMaze().length-1) *cellHeight;
-                double w_goal = (maze.getMaze()[0].length-1) *  cellWidth;
+                double h_goal = (maze.getGoalPosition().getRowIndex()) *cellHeight;
+                double w_goal = (maze.getGoalPosition().getColumnIndex()) *  cellWidth;
+                System.out.println(maze.getGoalPosition());
                 Image goalImage = null;
                 try {
                     goalImage=new Image(new FileInputStream(getImageFileGoal()));
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    System.out.println("There is no goal image!");
                 }
                 graphicsContext.drawImage(goalImage,w_goal,h_goal,cellWidth, cellHeight);
 

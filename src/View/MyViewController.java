@@ -2,6 +2,7 @@ package View;
 
 
 import Model.MyModel;
+import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -18,18 +19,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MyViewController implements IView{
-    private int[] size;
+    private int[] size = new int[3];
+    ;
     private AMazeGenerator mazeGenerator;
     public MazeDisplayer mazeDisplayer;
+    public MyViewModel viewModel;
 
-//    public MyViewController( AMazeGenerator mazeGenerator, MazeDisplayer mazeDisplayer) {
-//        this.mazeGenerator = mazeGenerator;
-//        this.mazeDisplayer = mazeDisplayer;
-//        this.mazeDisplayer.setImageFileNameWall("resources\\Images\\wall.PNG");
-//        this.mazeDisplayer.setImageFileNamePlayer("resources\\Images\\\u200F\u200Fdudu.PNG");
-//        this.mazeDisplayer.setImageFileGoal("resources\\Images\\fish.PNG");
-//
-//    }
+    public void setViewModel(MyViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     public void loadGame(ActionEvent actionEvent) {
     }
@@ -41,11 +39,6 @@ public class MyViewController implements IView{
     }
 
     public void showAbout(ActionEvent actionEvent) {
-        System.out.println("Git");
-        System.out.println("Git");
-        System.out.println("Git");
-
-
     }
 
     public void exitProgram(){
@@ -59,7 +52,7 @@ public class MyViewController implements IView{
         settings.setResizable(false);
         settings.setOpacity(0.9);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorView.fxml"));
-        Parent root = fxml.getRoot();
+        Parent root = null;
         try {
             root = fxml.load();
         } catch (IOException e) {
@@ -67,10 +60,9 @@ public class MyViewController implements IView{
             e.printStackTrace();
         }
         GeneratorViewController generator = fxml.getController();
-        size = new int[3];
         size[0]=0; //flag indicating new game is wanted
-        size[1]=10; //Set default values
-        size[2]=10;
+//        size[1]=10; //Set default values
+//        size[2]=10;
         generator.setSize(size);
         settings.setTitle("Set maze size");
         settings.setScene(new Scene(root));
@@ -82,6 +74,7 @@ public class MyViewController implements IView{
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
             generateMaze();
+        viewModel.test();
 
     }
 
@@ -92,9 +85,7 @@ public class MyViewController implements IView{
         int cols = size[2];
         Maze newMaze = this.mazeGenerator.generate(rows,cols);
         mazeDisplayer.drawMaze(newMaze);
-
     }
-
 
     public void keyPressed(KeyEvent keyEvent) {
     }
