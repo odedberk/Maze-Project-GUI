@@ -1,5 +1,6 @@
 package Main;
 
+import Model.MyModel;
 import View.GeneratorViewController;
 import View.MyViewController;
 import ViewModel.MyViewModel;
@@ -22,7 +23,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
         MyViewController viewController = loader.getController();
-        viewController.setViewModel(new MyViewModel());
+        viewController.setViewModel(new MyViewModel(new MyModel()));
         primaryStage.setTitle("The Maze");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();

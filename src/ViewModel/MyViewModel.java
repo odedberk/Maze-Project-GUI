@@ -1,7 +1,11 @@
 package ViewModel;
 
+import Model.IModel;
+
 public class MyViewModel {
-    public void test(){
-        System.out.println("test");
+    private IModel model;
+
+    public MyViewModel(IModel model) {
+        this.model = model;
     }
 }
