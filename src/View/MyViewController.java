@@ -20,8 +20,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MyViewController implements IView{
+public class MyViewController implements IView, Observer {
     private int[] size = new int[3];
     ;
     private AMazeGenerator mazeGenerator;
@@ -42,7 +44,10 @@ public class MyViewController implements IView{
     public void showAbout(ActionEvent actionEvent) {
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
 
+    }
 
     public void exitProgram(){
         viewModel.closeProgram();
@@ -86,10 +91,8 @@ public class MyViewController implements IView{
         mazeDisplayer.getScene().setOnScroll(event ->
             {
                 if(event.isControlDown()) {
-                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight()*(event.getDeltaY()>0 ?  1.04 : 0.95 ));
-//                        mazeDisplayer.setHeight(mazeDisplayer.getHeight()*(event.getDeltaY()>0 ?  1.04 : 0.95 ));
-                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth()*(event.getDeltaY()>0 ?  1.04 : 0.95 ));
-//                        mazeDisplayer.setWidth(mazeDisplayer.getHeight()*(event.getDeltaX()>0 ?  1.04 : 0.95 ));
+                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
+                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
                 }
             });
     }
@@ -102,4 +105,6 @@ public class MyViewController implements IView{
         System.out.println("zoom");
 
     }
+
+
 }
