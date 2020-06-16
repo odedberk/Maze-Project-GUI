@@ -7,7 +7,10 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.ISearchable;
 import algorithms.search.SearchableMaze;
 
-public class MyViewModel {
+import java.util.Observable;
+import java.util.Observer;
+
+public class MyViewModel extends Observable implements Observer,{
     private IModel model;
 
     public MyViewModel(IModel model) {
@@ -21,5 +24,10 @@ public class MyViewModel {
 
     public void closeProgram() {
         model.closeProgram();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

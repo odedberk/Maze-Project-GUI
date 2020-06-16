@@ -6,9 +6,11 @@ import algorithms.search.ISearchable;
 import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Properties;
 
-public class MyModel implements IModel {
+public class MyModel extends Observable implements IModel {
     private Server generatorServer;
     private Server solverServer;
 
@@ -58,4 +60,6 @@ public class MyModel implements IModel {
         solverServer.stop();
         System.exit(0);
     }
+
+
 }
