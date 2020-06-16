@@ -26,7 +26,6 @@ import java.util.Observer;
 public class MyViewController implements IView, Observer {
     private int[] size = new int[3];
     ;
-    private AMazeGenerator mazeGenerator;
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
 
@@ -65,7 +64,20 @@ public class MyViewController implements IView, Observer {
         viewModel.closeProgram();
     }
 
-    public void createGame(ActionEvent actionEvent) {
+    public void generateMaze(){
+        viewModel.generateMaze(size[1],size[2]);
+            }
+
+    public void keyPressed(KeyEvent keyEvent) {
+
+    }
+
+    public void resizeCanvas(ZoomEvent zoomEvent) {
+        System.out.println("zoom");
+
+    }
+
+    public void getSettings(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
         settings.setMinHeight(350);
@@ -96,20 +108,4 @@ public class MyViewController implements IView, Observer {
             generateMaze();
 
     }
-
-    public void generateMaze(){
-        viewModel.generateMaze(size[1],size[2]);
-            }
-
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    public void resizeCanvas(ZoomEvent zoomEvent) {
-        System.out.println("zoom");
-
-    }
-
-
-
 }

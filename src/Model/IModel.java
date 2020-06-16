@@ -16,6 +16,5 @@ public interface IModel {
     Properties getAbout();
     Solution getSolution(ISearchable searchable);
     void assignObserver(Observer o);
-
     void closeProgram();
 }

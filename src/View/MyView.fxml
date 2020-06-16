@@ -53,7 +53,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#createGame" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
+                  <Button mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
                   <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="129.0" text="Save Maze" GridPane.rowIndex="2" />
                </children>
