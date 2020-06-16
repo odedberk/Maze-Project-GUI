@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -28,12 +29,18 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(event ->  myModel.closeProgram());
 
         primaryStage.setMinHeight(450);
+//        primaryStage.setMaxHeight(1000);
         primaryStage.setMinWidth(550);
+//        primaryStage.setMaxWidth(1200);
         primaryStage.setResizable(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
         MyViewController viewController = loader.getController();
-        viewController.setViewModel(new MyViewModel(myModel));
+
+        MyViewModel viewModel = new MyViewModel(myModel);
+        viewController.setViewModel(viewModel);
+        viewModel.addObserver(viewController);
+
         primaryStage.setTitle("The Maze");
         primaryStage.setScene(new Scene(root, 350, 500));
         primaryStage.show();
