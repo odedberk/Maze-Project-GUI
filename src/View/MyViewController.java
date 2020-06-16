@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MyViewController implements IView{
+public class MyViewController implements IView {
     private int[] size = new int[3];
     ;
     private AMazeGenerator mazeGenerator;
