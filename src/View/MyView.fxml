@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import View.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="616.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<!--         <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat.png" imageFileNameWall="resources/Images/wall.png" onKeyPressed="#keyPressed" width="691.0">-->
+<!--             <BorderPane.margin>-->
+<!--                <Insets bottom="5.0" right="5.0" top="5.0" />-->
+<!--             </BorderPane.margin>-->
+<!--        </MazeDisplayer>-->
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="616.0" prefWidth="800.0" snapToPixel="false" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <top>
       <VBox prefHeight="6.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -36,24 +41,30 @@
    <left>
       <AnchorPane prefHeight="220.0" prefWidth="93.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="7.0" layoutY="72.0" mnemonicParsing="false" onAction="#createGame" prefHeight="25.0" prefWidth="95.0" text="New Maze" />
+            <GridPane layoutX="7.0" layoutY="111.0" prefHeight="185.0" prefWidth="79.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createGame" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
+                  <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="129.0" text="Save Maze" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </left>
-   <padding>
-      <Insets top="1.0" />
-   </padding>
    <center>
-       <Pane>
-           <children>
-               <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat.png" imageFileNameWall="resources/Images/wall.png" layoutX="10.0" onKeyPressed="#keyPressed" width="691.0" />
-           </children>
-           <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-           </padding>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-       </Pane>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+              <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat.png" imageFileNameWall="resources/Images/wall.png" onKeyPressed="#keyPressed" onZoomFinished="#resizeCanvas" width="691.0" />
+         </children>
+      </StackPane>
    </center>
 </BorderPane>

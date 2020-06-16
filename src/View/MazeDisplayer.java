@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
@@ -18,6 +19,37 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileGoal = new SimpleStringProperty();
+
+    @Override
+    public boolean isResizable() {
+        return true;
+    }
+    @Override
+    public double maxHeight(double width) {
+        return 10000;
+    }
+
+    @Override
+    public double maxWidth(double height) {
+        return 10000;
+    }
+    @Override
+    public double minWidth(double height) {
+        return 0;
+    }
+
+    @Override
+    public double minHeight(double width) {
+        return 0;
+    }
+
+    @Override
+    public void resize(double width, double height)
+    {
+        super.setWidth(width);
+        super.setHeight(height);
+        draw();
+    }
 
 
     public String getImageFileNameWall() {
@@ -73,6 +105,7 @@ public class MazeDisplayer extends Canvas {
         {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
+            System.out.println(canvasHeight+","+canvasWidth);
             int row = maze.getMaze().length;
             int col = maze.getMaze()[0].length;
             double cellHeight = canvasHeight/row;

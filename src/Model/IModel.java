@@ -7,11 +7,12 @@ import javafx.event.ActionEvent;
 import java.util.Properties;
 
 public interface IModel {
-    ISearchable generateGame();
+    ISearchable generateGame(int row, int col);
     ISearchable loadGame(String filePath);
     String saveGame(ISearchable searchable); //return path?
     Properties getProperties();
     Properties getAbout();
     Solution getSolution(ISearchable searchable);
 
+    void closeProgram();
 }

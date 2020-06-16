@@ -13,6 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.TouchEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -25,9 +28,7 @@ public class MyViewController implements IView {
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
 
-    public void setViewModel(MyViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
+    public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
     public void loadGame(ActionEvent actionEvent) {
     }
@@ -41,8 +42,10 @@ public class MyViewController implements IView {
     public void showAbout(ActionEvent actionEvent) {
     }
 
+
+
     public void exitProgram(){
-        System.exit(0);
+        viewModel.closeProgram();
     }
 
     public void createGame(ActionEvent actionEvent) {
@@ -50,7 +53,7 @@ public class MyViewController implements IView {
         settings.setMinWidth(250);
         settings.setMinHeight(350);
         settings.setResizable(false);
-        settings.setOpacity(0.9);
+        settings.setOpacity(0.97);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorView.fxml"));
         Parent root = null;
         try {
@@ -70,23 +73,33 @@ public class MyViewController implements IView {
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.showAndWait();
 
-        //GENERATE MAZE WITH int[] VALUES
+        //GENERATE MAZE WITH INPUT VALUES
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
             generateMaze();
-        viewModel.test();
 
     }
 
     public void generateMaze(){
-        if(mazeGenerator == null)
-            mazeGenerator = new MyMazeGenerator();
-        int rows = size[1];
-        int cols = size[2];
-        Maze newMaze = this.mazeGenerator.generate(rows,cols);
-        mazeDisplayer.drawMaze(newMaze);
+        Maze maze = viewModel.getMaze(size[1],size[2]);
+        mazeDisplayer.drawMaze(maze);
+        mazeDisplayer.getScene().setOnScroll(event ->
+            {
+                if(event.isControlDown()) {
+                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight()*(event.getDeltaY()>0 ?  1.04 : 0.95 ));
+//                        mazeDisplayer.setHeight(mazeDisplayer.getHeight()*(event.getDeltaY()>0 ?  1.04 : 0.95 ));
+                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth()*(event.getDeltaY()>0 ?  1.04 : 0.95 ));
+//                        mazeDisplayer.setWidth(mazeDisplayer.getHeight()*(event.getDeltaX()>0 ?  1.04 : 0.95 ));
+                }
+            });
     }
 
     public void keyPressed(KeyEvent keyEvent) {
+
+    }
+
+    public void resizeCanvas(ZoomEvent zoomEvent) {
+        System.out.println("zoom");
+
     }
 }
