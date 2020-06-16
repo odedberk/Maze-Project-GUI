@@ -1,6 +1,8 @@
 package Model;
 
+import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.ISearchable;
+import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
 import java.util.Properties;
@@ -8,9 +10,10 @@ import java.util.Properties;
 public class MyModel implements IModel {
 
     @Override
-    public ISearchable generateGame() {
-        return null;
+    public ISearchable generateGame(int row, int col) {
+        return new SearchableMaze(new MyMazeGenerator().generate(row, col));
     }
+
 
     @Override
     public ISearchable loadGame(String filePath) {

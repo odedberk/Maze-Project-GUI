@@ -78,12 +78,8 @@ public class MyViewController implements IView{
     }
 
     public void generateMaze(){
-        if(mazeGenerator == null)
-            mazeGenerator = new MyMazeGenerator();
-        int rows = size[1];
-        int cols = size[2];
-        Maze newMaze = this.mazeGenerator.generate(rows,cols);
-        mazeDisplayer.drawMaze(newMaze);
+        Maze maze = viewModel.generateMaze(size[1],size[2]);
+        mazeDisplayer.drawMaze(maze);
     }
 
     public void keyPressed(KeyEvent keyEvent) {
