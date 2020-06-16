@@ -46,6 +46,18 @@ public class MyViewController implements IView, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if (o instanceof MyViewModel){
+            if (arg instanceof Maze){
+                mazeDisplayer.drawMaze((Maze)arg);
+                mazeDisplayer.getScene().setOnScroll(event ->
+                {
+                    if(event.isControlDown()) {
+                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
+                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
+                    }
+                });
+            }
+        }
 
     }
 
@@ -86,16 +98,8 @@ public class MyViewController implements IView, Observer {
     }
 
     public void generateMaze(){
-        Maze maze = viewModel.getMaze(size[1],size[2]);
-        mazeDisplayer.drawMaze(maze);
-        mazeDisplayer.getScene().setOnScroll(event ->
-            {
-                if(event.isControlDown()) {
-                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
-                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
-                }
-            });
-    }
+        viewModel.generateMaze(size[1],size[2]);
+            }
 
     public void keyPressed(KeyEvent keyEvent) {
 
@@ -105,6 +109,7 @@ public class MyViewController implements IView, Observer {
         System.out.println("zoom");
 
     }
+
 
 
 }

@@ -1,14 +1,17 @@
 package Model;
 
 import Server.Server;
+import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.ISearchable;
 import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Properties;
 
-public class MyModel implements IModel {
+public class MyModel extends Observable implements IModel {
     private Server generatorServer;
     private Server solverServer;
 
@@ -21,19 +24,21 @@ public class MyModel implements IModel {
     }
 
     @Override
-    public ISearchable generateGame(int row, int col) {
-        return new SearchableMaze(new MyMazeGenerator().generate(row, col));
-//        return null;
+    public void generateGame(int row, int col) {
+        Maze maze = new MyMazeGenerator().generate(row, col);
+        setChanged();
+        notifyObservers(maze);
     }
 
 
     @Override
-    public ISearchable loadGame(String filePath) {
-        return null;
+    public void loadGame(String filePath) {
+        //TODO - implement loading
     }
 
     @Override
     public String saveGame(ISearchable searchable) {
+        //TODO - implement Saving
         return null;
     }
 
@@ -50,6 +55,11 @@ public class MyModel implements IModel {
     @Override
     public Solution getSolution(ISearchable searchable) {
         return null;
+    }
+
+    @Override
+    public void assignObserver(Observer o) {
+        addObserver(o);
     }
 
     @Override

@@ -41,9 +41,6 @@ public class GeneratorViewController {
             colSlider.setValue(!newValue.isEmpty()? Double.valueOf(newValue): colSlider.getMin());
         });
 
-//        rowsField.textProperty().bindBidirectional(rowSlider.valueProperty(), NumberFormat.getIntegerInstance());
-//        colsField.textProperty().bindBidirectional(colSlider.valueProperty(), NumberFormat.getIntegerInstance());
-
     }
 
     public void sendValues(ActionEvent actionEvent) {
