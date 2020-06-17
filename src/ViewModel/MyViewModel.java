@@ -4,7 +4,9 @@ import Model.IModel;
 import algorithms.mazeGenerators.Maze;
 
 import algorithms.search.SearchableMaze;
+import algorithms.search.Solution;
 
+import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,6 +35,15 @@ public class MyViewModel extends Observable implements Observer {
                 setChanged();
                 notifyObservers(arg);
             }
+
+            if (arg instanceof Solution){
+                setChanged();
+                notifyObservers(arg);
+            }
         }
+    }
+
+    public void solveMaze() {
+        model.solveGame();
     }
 }

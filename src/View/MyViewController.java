@@ -6,6 +6,7 @@ import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.search.Solution;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -56,6 +57,11 @@ public class MyViewController implements IView, Observer {
                     }
                 });
             }
+
+            if (arg instanceof Solution){
+                System.out.println("solved!");
+                //TODO - SHOW SOLUTION ON CANVAS
+            }
         }
 
     }
@@ -67,6 +73,8 @@ public class MyViewController implements IView, Observer {
     public void generateMaze(){
         viewModel.generateMaze(size[1],size[2]);
             }
+
+    public void solveMaze(){viewModel.solveMaze();}
 
     public void keyPressed(KeyEvent keyEvent) {
 
@@ -93,8 +101,6 @@ public class MyViewController implements IView, Observer {
         }
         GeneratorViewController generator = fxml.getController();
         size[0]=0; //flag indicating new game is wanted
-//        size[1]=10; //Set default values
-//        size[2]=10;
         generator.setSize(size);
         settings.setTitle("Set maze size");
         settings.setScene(new Scene(root));

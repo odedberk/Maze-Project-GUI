@@ -56,6 +56,7 @@
                   <Button mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
                   <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="129.0" text="Save Maze" GridPane.rowIndex="2" />
+                   <Button mnemonicParsing="false" onAction="#solveMaze" text="Button" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>
