@@ -23,8 +23,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Server mazeGeneratingServer = new Server(5400, 2000, new ServerStrategyGenerateMaze());
-        Server mazeSolvingServer = new Server(5401, 2000, new ServerStrategySolveSearchProblem());
+        Server mazeGeneratingServer = new Server(5400, 10000, new ServerStrategyGenerateMaze());
+        Server mazeSolvingServer = new Server(5401, 10000, new ServerStrategySolveSearchProblem());
         MyModel myModel= new MyModel(mazeGeneratingServer,mazeSolvingServer);
         primaryStage.setOnCloseRequest(event ->  myModel.closeProgram());
 
