@@ -3,9 +3,7 @@ package View;
 
 import Model.MyModel;
 import ViewModel.MyViewModel;
-import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.Solution;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.TouchEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
