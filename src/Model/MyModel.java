@@ -36,7 +36,7 @@ public class MyModel extends Observable implements IModel {
     public void generateGame(int row, int col) {
         final Maze[] temp = new Maze[1];
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
+            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() { //TODO - CHANGE PORT?
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
@@ -102,8 +102,7 @@ public class MyModel extends Observable implements IModel {
 
         final Solution[] mazeSolution = new Solution[1];
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5401, new
-                    IClientStrategy() {
+            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() { //TODO - CHANGE PORT?
                         @Override
                         public void clientStrategy(InputStream inFromServer,
                                                    OutputStream outToServer) {
