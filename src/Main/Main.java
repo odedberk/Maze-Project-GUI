@@ -3,20 +3,13 @@ package Main;
 import Model.MyModel;
 import Server.Server;
 import Server.*;
-import View.GeneratorViewController;
 import View.MyViewController;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class Main extends Application {
 
@@ -36,7 +29,6 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
         MyViewController viewController = loader.getController();
-
         MyViewModel viewModel = new MyViewModel(myModel);
         viewController.setViewModel(viewModel);
         viewModel.addObserver(viewController);
@@ -44,6 +36,7 @@ public class Main extends Application {
         primaryStage.setTitle("The Maze");
         primaryStage.setScene(new Scene(root, 350, 500));
         primaryStage.show();
+
     }
 
 

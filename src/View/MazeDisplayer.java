@@ -1,6 +1,7 @@
 package View;
 
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
@@ -16,6 +17,8 @@ public class MazeDisplayer extends Canvas {
 
     private Maze maze;
     private int[] playerPosition;
+    private Solution solution;
+    boolean showSolution;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileGoal = new SimpleStringProperty();
@@ -30,9 +33,7 @@ public class MazeDisplayer extends Canvas {
     }
 
     @Override
-    public double maxWidth(double height) {
-        return 10000;
-    }
+    public double maxWidth(double height) { return 10000; }
     @Override
     public double minWidth(double height) {
         return 0;

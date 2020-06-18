@@ -48,7 +48,7 @@ public class MyModel extends Observable implements IModel {
                         byte[] compressedMaze = (byte[])fromServer.readObject();
                         System.out.println(compressedMaze.length);
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        byte[] decompressedMaze = new byte[250000]; //max 500X500
+                        byte[] decompressedMaze = new byte[300000]; //max 500X500
                         is.read(decompressedMaze);
                         temp[0] = new Maze(decompressedMaze);
                         Thread.sleep(1000L);

@@ -1,40 +1,48 @@
 package View;
 
 
-import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ZoomEvent;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class MyViewController implements IView, Observer {
     private int[] size = new int[3];
     ;
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
+    public Button solveBtn;
 
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
     public void loadGame(ActionEvent actionEvent) {
+//        System.out.println("load");
+//        FileChooser fileChooser = new FileChooser();
+//        File f= fileChooser.showOpenDialog(((Node)actionEvent.getSource()).getScene().getWindow());
+//        System.out.println(f.getName());
     }
 
     public void saveGame(ActionEvent actionEvent) {
-    }
-
-    public void showProperties(ActionEvent actionEvent) {
     }
 
     public void showAbout(ActionEvent actionEvent) {
@@ -76,11 +84,6 @@ public class MyViewController implements IView, Observer {
 
     }
 
-    public void resizeCanvas(ZoomEvent zoomEvent) {
-        System.out.println("zoom");
-
-    }
-
     public void getSettings(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
@@ -95,7 +98,7 @@ public class MyViewController implements IView, Observer {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Cannot open window!");
             e.printStackTrace();
         }
-        GeneratorViewController generator = fxml.getController();
+        GeneratorView generator = fxml.getController();
         size[0]=0; //flag indicating new game is wanted
         generator.setSize(size);
         settings.setTitle("Set maze size");
@@ -108,6 +111,20 @@ public class MyViewController implements IView, Observer {
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
             generateMaze();
+        solveBtn.setDisable(false);
 
     }
+
+    public void showProperties(ActionEvent actionEvent) {
+        StringBuilder show = new StringBuilder("");
+        Set<String> properties = Configurations.getAllProperties();
+        for (String key:properties) {
+            show.append(key+" : "+Configurations.getProperty(key)+"\n");
+        }
+        Alert alert= new Alert(Alert.AlertType.INFORMATION, show.toString());
+//        alert.setTitle("Configurations:");
+        alert.setHeaderText("Configurations:");
+        alert.show();
+    }
+
 }
