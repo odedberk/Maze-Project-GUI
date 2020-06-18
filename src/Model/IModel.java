@@ -14,6 +14,7 @@ public interface IModel {
     String saveGame(ISearchable searchable); //return path?
     Properties getProperties();
     Properties getAbout();
+    void solveGame();
     Solution getSolution(ISearchable searchable);
     void assignObserver(Observer o);
     void closeProgram();
