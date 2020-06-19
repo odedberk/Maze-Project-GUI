@@ -133,6 +133,7 @@ public class MyViewController implements IView, Observer {
         Media h = new Media(Paths.get(s).toUri().toString());
         MediaPlayer meow;
         meow = new MediaPlayer(h);
+        meow.setCycleCount(1);
         meow.play();
     }
 

@@ -31,6 +31,7 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileGoal = new SimpleStringProperty();
+    StringProperty imageTreat = new SimpleStringProperty("resources/Images/treats.png");
 
     @Override
     public boolean isResizable() {
@@ -146,8 +147,10 @@ public class MazeDisplayer extends Canvas {
             double w,h;
             //Draw Maze
             Image wallImage = null;
+            Image solPath=null;
             try {
                 wallImage = new Image(new FileInputStream(getImageFileNameWall()));
+                solPath = new Image(new FileInputStream(imageTreat.get()));
             } catch (FileNotFoundException e) {
                 System.out.println("There is no wall image!");
             }
@@ -166,7 +169,11 @@ public class MazeDisplayer extends Canvas {
                         }
                     }
                     else if (showSolution && solutionPath.contains(new Pair<>(i,j))){
-                        graphicsContext.fillRect(j * cellWidth,i * cellHeight,cellWidth,cellHeight);
+                        if (solPath==null)
+                            graphicsContext.fillRect(j * cellWidth,i * cellHeight,cellWidth,cellHeight);
+                        else
+                            graphicsContext.drawImage(solPath,j * cellWidth,i * cellHeight,cellWidth,cellHeight);
+
                     }
 
                 }
