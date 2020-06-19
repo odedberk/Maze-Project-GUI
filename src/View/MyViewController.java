@@ -85,8 +85,6 @@ public class MyViewController implements IView, Observer {
     }
 
     private void gameWon() {
-//        mazeDisplayer.setImageFileNamePlayer("resources/Images/happy.png");
-//        mazeDisplayer.draw();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;
