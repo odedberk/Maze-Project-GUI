@@ -4,10 +4,8 @@ import Client.*;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
 import java.io.*;
@@ -65,6 +63,8 @@ public class MyModel extends Observable implements IModel {
         }
 
         maze=temp[0];
+        charPosition[0]=maze.getStartPosition().getRowIndex();
+        charPosition[1]=maze.getStartPosition().getColumnIndex();
         setChanged();
         notifyObservers(maze);
     }
@@ -89,6 +89,38 @@ public class MyModel extends Observable implements IModel {
     @Override
     public Properties getAbout() {
         return null;
+    }
+
+    @Override
+    public void moveCharacter(Direction direction) {
+        switch(direction)
+        {
+            case UP:
+                if(charPosition[0]!=0 && !isWall(charPosition[0]-1,charPosition[1]))
+                    charPosition[0]--;
+                break;
+
+            case DOWN: //Down
+              if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1]))
+                  charPosition[0]++;
+                break;
+            case LEFT: //Left
+              if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1))
+                  charPosition[1]--;
+                break;
+            case RIGHT: //Right
+              if(charPosition[1]!=maze.getMaze()[0].length-1&& !isWall( charPosition[0],charPosition[1]+1))
+                  charPosition[1]++;
+                break;
+
+        }
+
+        setChanged();
+        notifyObservers(charPosition);
+    }
+
+    private boolean isWall(int row, int col) {
+        return maze.getMaze()[row][col]==1;
     }
 
     @Override

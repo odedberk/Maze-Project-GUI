@@ -39,6 +39,9 @@ public class MazeDisplayer extends Canvas {
         return 0;
     }
 
+    public boolean gotMaze(){
+        return maze!=null;
+    }
     @Override
     public double minHeight(double width) {
         return 0;
@@ -84,9 +87,10 @@ public class MazeDisplayer extends Canvas {
         return playerPosition[1];
     }
 
-    public void set_player_position(int row, int col){
-        this.playerPosition[0] = row;
-        this.playerPosition[1] = col;
+    public void set_player_position(int[] position){
+//        this.playerPosition[0] = row;
+//        this.playerPosition[1] = col;
+        playerPosition=position;
         draw();
     }
 
@@ -150,7 +154,7 @@ public class MazeDisplayer extends Canvas {
             }
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
-            if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()-1){
+            if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()){
                 double h_goal = (maze.getGoalPosition().getRowIndex()) *cellHeight;
                 double w_goal = (maze.getGoalPosition().getColumnIndex()) *  cellWidth;
                 System.out.println(maze.getGoalPosition());

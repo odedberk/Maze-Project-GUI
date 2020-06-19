@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -50,24 +51,26 @@ public class MyViewController implements IView, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof MyViewModel){
-            if (arg instanceof Maze){
-                mazeDisplayer.drawMaze((Maze)arg);
+        if (o instanceof MyViewModel) {
+            if (arg instanceof Maze) {
+                mazeDisplayer.drawMaze((Maze) arg);
                 mazeDisplayer.getScene().setOnScroll(event ->
                 {
-                    if(event.isControlDown()) {
-                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
-                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth()*(event.getDeltaY()>0 ?  1.02 : 0.97 ));
+                    if (event.isControlDown()) {
+                        mazeDisplayer.getScene().getWindow().setHeight(mazeDisplayer.getScene().getWindow().getHeight() * (event.getDeltaY() > 0 ? 1.08 : 0.94));
+                        mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth() * (event.getDeltaY() > 0 ? 1.08 : 0.94));
                     }
                 });
             }
 
-            if (arg instanceof Solution){
+            if (arg instanceof Solution) {
                 System.out.println("solved!");
                 //TODO - SHOW SOLUTION ON CANVAS
             }
+            if (arg instanceof int[]) {
+                mazeDisplayer.set_player_position((int[]) arg);
+            }
         }
-
     }
 
     public void exitProgram(){
@@ -76,12 +79,15 @@ public class MyViewController implements IView, Observer {
 
     public void generateMaze(){
         viewModel.generateMaze(size[1],size[2]);
-            }
+    }
 
     public void solveMaze(){viewModel.solveMaze();}
 
     public void keyPressed(KeyEvent keyEvent) {
-
+        if (mazeDisplayer.gotMaze()){
+            viewModel.moveCharacter(keyEvent);
+            keyEvent.consume();
+        }
     }
 
     public void getSettings(ActionEvent actionEvent) {
@@ -127,4 +133,7 @@ public class MyViewController implements IView, Observer {
         alert.show();
     }
 
+    public void mouseClicked(MouseEvent mouseEvent) {
+        mazeDisplayer.requestFocus();
+    }
 }
