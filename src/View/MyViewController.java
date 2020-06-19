@@ -111,6 +111,7 @@ public class MyViewController implements IView, Observer {
 
 
     private void gameWon() {
+        playMeow();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;
@@ -125,6 +126,14 @@ public class MyViewController implements IView, Observer {
 //        new Alert(Alert.AlertType.INFORMATION,"You Won!!").show();
         mazeDisplayer.setDisable(true);
         solveBtn.setDisable(true);
+    }
+
+    private void playMeow() {
+        String s = "resources/sounds/meow.mp3";
+        Media h = new Media(Paths.get(s).toUri().toString());
+        MediaPlayer meow;
+        meow = new MediaPlayer(h);
+        meow.play();
     }
 
     private boolean isGoalPosition(int[] arg) {

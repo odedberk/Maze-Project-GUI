@@ -23,7 +23,7 @@ public class Main extends Application {
 
         primaryStage.setMinHeight(450);
 //        primaryStage.setMaxHeight(1000);
-        primaryStage.setMinWidth(550);
+        primaryStage.setMinWidth(950);
 //        primaryStage.setMaxWidth(1200);
         primaryStage.setResizable(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
@@ -33,8 +33,9 @@ public class Main extends Application {
         viewController.setViewModel(viewModel);
         viewModel.addObserver(viewController);
         viewController.playMusic();
-        primaryStage.setTitle("The Maze");
+        primaryStage.setTitle("Grumpy Maze");
         primaryStage.setScene(new Scene(root, 350, 500));
+
         primaryStage.show();
 
     }
