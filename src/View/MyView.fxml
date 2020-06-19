@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane onMouseClicked="#mouseClicked" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="616.0" prefWidth="800.0" snapToPixel="false" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#mouseClicked" prefHeight="616.0" prefWidth="800.0" snapToPixel="false" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <top>
       <VBox prefHeight="6.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -47,9 +47,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
-                  <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" onAction="#loadGame" />
-                  <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Save Maze" GridPane.rowIndex="2" />
+                  <Button fx:id="newBtn" mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
+                  <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#loadGame" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
+                  <Button fx:id="saveBtn" disable="true" mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Save Maze" GridPane.rowIndex="2" />
                    <Button fx:id="solveBtn" disable="true" mnemonicParsing="false" onAction="#solveMaze" prefHeight="23.0" prefWidth="145.0" text="Solve!" GridPane.rowIndex="3" />
                </children>
             </GridPane>
@@ -59,7 +59,7 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-              <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat.png" imageFileNameWall="resources/Images/wall.png" onKeyPressed="#keyPressed" width="691.0" />
+              <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat1.png" imageFileNameWall="resources/Images/wall.png" onKeyPressed="#keyPressed" width="691.0" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" right="19.0" top="10.0" />

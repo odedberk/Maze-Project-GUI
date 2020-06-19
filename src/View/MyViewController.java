@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ZoomEvent;
@@ -22,6 +24,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,6 +37,7 @@ public class MyViewController implements IView, Observer {
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
     public Button solveBtn;
+    public Button saveBtn;
 
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
@@ -53,6 +58,9 @@ public class MyViewController implements IView, Observer {
     public void update(Observable o, Object arg) {
         if (o instanceof MyViewModel) {
             if (arg instanceof Maze) {
+                mazeDisplayer.setDisable(false);
+                solveBtn.setDisable(false);
+                saveBtn.setDisable(false);
                 mazeDisplayer.drawMaze((Maze) arg);
                 mazeDisplayer.getScene().setOnScroll(event ->
                 {
@@ -67,10 +75,36 @@ public class MyViewController implements IView, Observer {
                 System.out.println("solved!");
                 //TODO - SHOW SOLUTION ON CANVAS
             }
-            if (arg instanceof int[]) {
+            if (arg instanceof int[]) { //updated player position
                 mazeDisplayer.set_player_position((int[]) arg);
+                if (isGoalPosition((int[])arg)) {
+                    gameWon();
+                }
             }
         }
+    }
+
+    private void gameWon() {
+//        mazeDisplayer.setImageFileNamePlayer("resources/Images/happy.png");
+//        mazeDisplayer.draw();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("YOU WON!!\nnow feed me.");
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream("resources/Images/happy.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ImageView imageView = new ImageView(image);
+        alert.setGraphic(imageView);
+        alert.showAndWait();
+//        new Alert(Alert.AlertType.INFORMATION,"You Won!!").show();
+        mazeDisplayer.setDisable(true);
+        solveBtn.setDisable(true);
+    }
+
+    private boolean isGoalPosition(int[] arg) {
+        return mazeDisplayer.isGoal(arg);
     }
 
     public void exitProgram(){
@@ -117,8 +151,6 @@ public class MyViewController implements IView, Observer {
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
             generateMaze();
-        solveBtn.setDisable(false);
-
     }
 
     public void showProperties(ActionEvent actionEvent) {
@@ -136,4 +168,6 @@ public class MyViewController implements IView, Observer {
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
     }
+
+
 }

@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -16,6 +17,7 @@ import java.io.FileNotFoundException;
 public class MazeDisplayer extends Canvas {
 
     private Maze maze;
+    int looking=-1;
     private int[] playerPosition;
     private Solution solution;
     boolean showSolution;
@@ -31,7 +33,6 @@ public class MazeDisplayer extends Canvas {
     public double maxHeight(double width) {
         return 10000;
     }
-
     @Override
     public double maxWidth(double height) { return 10000; }
     @Override
@@ -42,6 +43,7 @@ public class MazeDisplayer extends Canvas {
     public boolean gotMaze(){
         return maze!=null;
     }
+
     @Override
     public double minHeight(double width) {
         return 0;
@@ -84,9 +86,14 @@ public class MazeDisplayer extends Canvas {
     }
 
     public void set_player_position(int[] position){
+        setImageFileNamePlayer("resources/Images/cat"+looking+".png");
         playerPosition=position;
         draw();
+        looking*=-1;
     }
+    private double getRow_player() {return playerPosition[0]; }
+
+    private double getCol_player() {return playerPosition[1]; }
 
 
     public void drawMaze(Maze maze)
@@ -96,6 +103,10 @@ public class MazeDisplayer extends Canvas {
         playerPosition[0]=maze.getStartPosition().getRowIndex();
         playerPosition[1]=maze.getStartPosition().getColumnIndex();
         draw();
+    }
+
+    public boolean isGoal(int[] arg) {
+        return arg[0]==maze.getGoalPosition().getRowIndex() && arg[1]==maze.getGoalPosition().getColumnIndex();
     }
 
     public void draw()
@@ -162,5 +173,11 @@ public class MazeDisplayer extends Canvas {
 
             }
         }
+
     }
+
+
+
+
+
 }
