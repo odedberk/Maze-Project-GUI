@@ -28,6 +28,8 @@ public class MazeDisplayer extends Canvas {
     private Solution solution;
     private Set<Pair<Integer,Integer>> solutionPath = new LinkedHashSet<Pair<Integer, Integer>>();
     boolean showSolution;
+    boolean highlightChararcter;
+    boolean highlightGoal;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileGoal = new SimpleStringProperty();
@@ -169,8 +171,8 @@ public class MazeDisplayer extends Canvas {
                         }
                     }
                     else if (showSolution && solutionPath.contains(new Pair<>(i,j))){
-                        if (solPath==null)
-                            graphicsContext.fillRect(j * cellWidth,i * cellHeight,cellWidth,cellHeight);
+                        if (solPath==null || maze.getMaze().length>30 ||maze.getMaze()[0].length>30 ) // no picture OR large maze
+                            graphicsContext.fillOval(j * cellWidth,i * cellHeight,cellWidth,cellHeight);
                         else
                             graphicsContext.drawImage(solPath,j * cellWidth,i * cellHeight,cellWidth,cellHeight);
 
@@ -187,6 +189,8 @@ public class MazeDisplayer extends Canvas {
             } catch (FileNotFoundException e) {
                 System.out.println("There is no player image!");
             }
+            if (highlightChararcter)
+                graphicsContext.fillOval(w_player,h_player,cellWidth,cellHeight);
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
             if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()){
@@ -199,6 +203,8 @@ public class MazeDisplayer extends Canvas {
                 } catch (FileNotFoundException e) {
                     System.out.println("There is no goal image!");
                 }
+                if (highlightGoal)
+                    graphicsContext.fillOval(w_goal,h_goal,cellWidth, cellHeight);
                 graphicsContext.drawImage(goalImage,w_goal,h_goal,cellWidth, cellHeight);
 
             }

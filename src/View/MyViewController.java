@@ -43,6 +43,8 @@ public class MyViewController implements IView, Observer {
     public ToggleButton solveBtn;
     public Button saveBtn;
     public ToggleButton playBtn;
+    public ToggleButton fishBtn;
+    public ToggleButton catBtn;
     public MediaPlayer mediaPlayer;
 
 
@@ -83,6 +85,9 @@ public class MyViewController implements IView, Observer {
                 mazeDisplayer.setDisable(false);
                 solveBtn.setDisable(false);
                 saveBtn.setDisable(false);
+                catBtn.setDisable(false);
+                fishBtn.setDisable(false);
+
                 mazeDisplayer.drawMaze((Maze) arg);
 //                music();
                 mazeDisplayer.getScene().setOnScroll(event ->
@@ -211,5 +216,13 @@ public class MyViewController implements IView, Observer {
     }
 
 
+    public void showFish(ActionEvent actionEvent) {
+        mazeDisplayer.highlightGoal = !mazeDisplayer.highlightGoal;
+        mazeDisplayer.draw();
+    }
 
+    public void showCat(ActionEvent actionEvent) {
+        mazeDisplayer.highlightChararcter = !mazeDisplayer.highlightChararcter;
+        mazeDisplayer.draw();
+    }
 }
