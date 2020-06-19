@@ -13,11 +13,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ZoomEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -27,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -38,6 +42,9 @@ public class MyViewController implements IView, Observer {
     public MyViewModel viewModel;
     public Button solveBtn;
     public Button saveBtn;
+    public ToggleButton playBtn;
+    public MediaPlayer mediaPlayer;
+
 
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
@@ -53,6 +60,18 @@ public class MyViewController implements IView, Observer {
 
     public void showAbout(ActionEvent actionEvent) {
     }
+    public void playMusic() {
+        String s = "resources/sounds/background.mp3";
+        Media h = new Media(Paths.get(s).toUri().toString());
+        mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.play();
+    }
+
+    public void mute(ActionEvent actionEvent) {
+        mediaPlayer.setMute(!mediaPlayer.isMute());
+    }
+
+
 
     @Override
     public void update(Observable o, Object arg) {
@@ -62,6 +81,7 @@ public class MyViewController implements IView, Observer {
                 solveBtn.setDisable(false);
                 saveBtn.setDisable(false);
                 mazeDisplayer.drawMaze((Maze) arg);
+//                music();
                 mazeDisplayer.getScene().setOnScroll(event ->
                 {
                     if (event.isControlDown()) {
@@ -166,6 +186,7 @@ public class MyViewController implements IView, Observer {
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
     }
+
 
 
 }

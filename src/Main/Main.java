@@ -32,7 +32,7 @@ public class Main extends Application {
         MyViewModel viewModel = new MyViewModel(myModel);
         viewController.setViewModel(viewModel);
         viewModel.addObserver(viewController);
-
+        viewController.playMusic();
         primaryStage.setTitle("The Maze");
         primaryStage.setScene(new Scene(root, 350, 500));
         primaryStage.show();
