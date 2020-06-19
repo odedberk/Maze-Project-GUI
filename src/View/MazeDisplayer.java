@@ -79,17 +79,11 @@ public class MazeDisplayer extends Canvas {
         this.imageFileGoal.set(imageFileGoal);
     }
 
-    public int getRow_player() {
-        return playerPosition[0];
-    }
-
-    public int getCol_player() {
-        return playerPosition[1];
+    public int[] get_player_position() {
+        return playerPosition;
     }
 
     public void set_player_position(int[] position){
-//        this.playerPosition[0] = row;
-//        this.playerPosition[1] = col;
         playerPosition=position;
         draw();
     }
