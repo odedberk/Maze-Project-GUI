@@ -50,10 +50,10 @@
                   <Button fx:id="newBtn" mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
                   <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#loadGame" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
                   <Button fx:id="saveBtn" disable="true" mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Save Maze" GridPane.rowIndex="2" />
-                   <Button fx:id="solveBtn" disable="true" mnemonicParsing="false" onAction="#solveMaze" prefHeight="23.0" prefWidth="145.0" text="Solve!" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <ToggleButton fx:id="playBtn" layoutX="21.0" layoutY="271.0" mnemonicParsing="false" onAction="#mute" prefHeight="25.0" prefWidth="52.0" text="Mute" />
+            <ToggleButton fx:id="playBtn" layoutX="21.0" layoutY="296.0" mnemonicParsing="false" onAction="#mute" prefHeight="25.0" prefWidth="52.0" text="Mute" />
+            <ToggleButton fx:id="solveBtn" disable="true" layoutX="4.0" layoutY="252.0" mnemonicParsing="false" onAction="#solveMaze" text="Show Solution" />
          </children>
       </AnchorPane>
    </left>

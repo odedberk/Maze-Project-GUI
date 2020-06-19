@@ -4,6 +4,7 @@ import Client.*;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
 import algorithms.search.Solution;
@@ -131,7 +132,7 @@ public class MyModel extends Observable implements IModel {
             notifyObservers(null);
             return;
         }
-
+        maze.setStart(new Position(charPosition[0],charPosition[1])); // Solve from current player's position
         final Solution[] mazeSolution = new Solution[1];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() { //TODO - CHANGE PORT?

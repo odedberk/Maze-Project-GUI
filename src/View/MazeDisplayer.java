@@ -1,6 +1,7 @@
 package View;
 
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.AState;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -10,9 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class MazeDisplayer extends Canvas {
 
@@ -20,6 +26,7 @@ public class MazeDisplayer extends Canvas {
     int looking=-1;
     private int[] playerPosition;
     private Solution solution;
+    private Set<Pair<Integer,Integer>> solutionPath = new LinkedHashSet<Pair<Integer, Integer>>();
     boolean showSolution;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
@@ -95,6 +102,19 @@ public class MazeDisplayer extends Canvas {
 
     private double getCol_player() {return playerPosition[1]; }
 
+    public void setSolution(Solution solution){
+        showSolution=true;
+        solutionPath.clear();
+        ArrayList<AState> path = solution.getSolutionPath();
+        for (AState pos : path){
+            String place = pos.getState();
+            int row = Integer.parseInt(place.substring(1,place.indexOf(",")));
+            int col = Integer.parseInt(place.substring(place.indexOf(",")+1,place.length()-1));
+            solutionPath.add(new Pair<>(row,col));
+        }
+        System.out.println("solution built");
+    }
+
 
     public void drawMaze(Maze maze)
     {
@@ -144,6 +164,9 @@ public class MazeDisplayer extends Canvas {
                         }else{
                             graphicsContext.drawImage(wallImage,w,h,cellWidth,cellHeight);
                         }
+                    }
+                    else if (showSolution && solutionPath.contains(new Pair<>(i,j))){
+                        graphicsContext.fillRect(j * cellWidth,i * cellHeight,cellWidth,cellHeight);
                     }
 
                 }

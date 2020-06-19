@@ -40,7 +40,7 @@ public class MyViewController implements IView, Observer {
     ;
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
-    public Button solveBtn;
+    public ToggleButton solveBtn;
     public Button saveBtn;
     public ToggleButton playBtn;
     public MediaPlayer mediaPlayer;
@@ -64,6 +64,7 @@ public class MyViewController implements IView, Observer {
         String s = "resources/sounds/background.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
         mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.setCycleCount(5);
         mediaPlayer.play();
     }
 
@@ -77,6 +78,8 @@ public class MyViewController implements IView, Observer {
     public void update(Observable o, Object arg) {
         if (o instanceof MyViewModel) {
             if (arg instanceof Maze) {
+                mazeDisplayer.showSolution=false;
+                solveBtn.setSelected(false);
                 mazeDisplayer.setDisable(false);
                 solveBtn.setDisable(false);
                 saveBtn.setDisable(false);
@@ -93,6 +96,8 @@ public class MyViewController implements IView, Observer {
 
             if (arg instanceof Solution) {
                 System.out.println("solved!");
+                mazeDisplayer.setSolution((Solution) arg);
+                mazeDisplayer.draw();
                 //TODO - SHOW SOLUTION ON CANVAS
             }
             if (arg instanceof int[]) { //updated player position
@@ -103,6 +108,7 @@ public class MyViewController implements IView, Observer {
             }
         }
     }
+
 
     private void gameWon() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -133,7 +139,14 @@ public class MyViewController implements IView, Observer {
         viewModel.generateMaze(size[1],size[2]);
     }
 
-    public void solveMaze(){viewModel.solveMaze();}
+    public void solveMaze(){
+        if (mazeDisplayer.showSolution) {
+            mazeDisplayer.showSolution = false;
+            mazeDisplayer.draw();
+        }
+        else
+            viewModel.solveMaze();
+    }
 
     public void keyPressed(KeyEvent keyEvent) {
         if (mazeDisplayer.gotMaze()){
