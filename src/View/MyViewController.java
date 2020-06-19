@@ -80,14 +80,7 @@ public class MyViewController implements IView, Observer {
     public void update(Observable o, Object arg) {
         if (o instanceof MyViewModel) {
             if (arg instanceof Maze) {
-                mazeDisplayer.showSolution=false;
-                solveBtn.setSelected(false);
-                mazeDisplayer.setDisable(false);
-                solveBtn.setDisable(false);
-                saveBtn.setDisable(false);
-                catBtn.setDisable(false);
-                fishBtn.setDisable(false);
-
+                resetMaze();
                 mazeDisplayer.drawMaze((Maze) arg);
 //                music();
                 mazeDisplayer.getScene().setOnScroll(event ->
@@ -112,6 +105,20 @@ public class MyViewController implements IView, Observer {
                 }
             }
         }
+    }
+
+    private void resetMaze() {
+        mazeDisplayer.showSolution=false;
+        mazeDisplayer.highlightChararcter=false;
+        mazeDisplayer.highlightGoal=false;
+        solveBtn.setSelected(false);
+        catBtn.setSelected(false);
+        fishBtn.setSelected(false);
+        mazeDisplayer.setDisable(false);
+        solveBtn.setDisable(false);
+        saveBtn.setDisable(false);
+        catBtn.setDisable(false);
+        fishBtn.setDisable(false);
     }
 
 
@@ -167,6 +174,8 @@ public class MyViewController implements IView, Observer {
         if (mazeDisplayer.gotMaze()){
             viewModel.moveCharacter(keyEvent);
             keyEvent.consume();
+            if (mazeDisplayer.showSolution)
+                viewModel.solveMaze();
         }
     }
 
