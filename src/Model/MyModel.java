@@ -13,16 +13,17 @@ import algorithms.search.Solution;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Properties;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.*;
 
 public class MyModel extends Observable implements IModel {
     private Server generatorServer;
     private Server solverServer;
     private int[] charPosition;
     private Maze maze;
+    private HashMap<String,String> saves ;
+    private int saveCounter;
 
     public MyModel (Server generator, Server solver){
         generatorServer=generator;
@@ -30,6 +31,8 @@ public class MyModel extends Observable implements IModel {
         generatorServer.start();
         solverServer.start();
         charPosition=new int[2];
+        saveCounter=0;
+        saves = new HashMap<>();
     }
 
     @Override
@@ -71,14 +74,49 @@ public class MyModel extends Observable implements IModel {
 
 
     @Override
-    public void loadGame(String filePath) {
-        //TODO - implement loading
+    public void loadGame(String fileName) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(saves.get(fileName));
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            this.maze=(Maze)objectInputStream.readObject();
+            objectInputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        setChanged();
+        notifyObservers(maze);
     }
 
     @Override
-    public String saveGame(ISearchable searchable) {
-        //TODO - implement Saving
+    public String saveGame() {//ISearchable searchable
+        String game = "Game"+saveCounter;
+        try {//write the solution to file
+            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+            //System.out.println(path+"\\resources\\SavedGames");
+            FileOutputStream outputStream = new FileOutputStream(path+"\\resources\\SavedGames\\"+game);
+            ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
+            objectOutput.writeObject(maze);
+            objectOutput.flush();
+            objectOutput.close();
+            saves.put(game,path+"\\resources\\SavedGames\\"+game);
+            saveCounter++;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    public void getLoadGames(){
+        LinkedList<String> games = new LinkedList<>();
+        for (String s : saves.keySet()) {
+            games.add(s);
+        }
+        for (int i = 0; i < 50; i++) {
+            games.add(i+"");
+        }
+        games.add("tuk");
+        setChanged();
+        notifyObservers(games);
     }
 
     @Override

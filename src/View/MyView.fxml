@@ -54,8 +54,8 @@
                </rowConstraints>
                <children>
                   <Button mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
-                  <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="129.0" text="Save Maze" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onAction="#loadGame" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#saveGame" prefHeight="23.0" prefWidth="129.0" text="Save Maze" GridPane.rowIndex="2" />
                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#solveMaze" text="Solve (DON'T!)" GridPane.rowIndex="3" />
                </children>
             </GridPane>

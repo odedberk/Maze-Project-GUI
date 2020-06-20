@@ -11,7 +11,7 @@ import java.util.Properties;
 public interface IModel {
     void generateGame(int row, int col);
     void loadGame(String filePath);
-    String saveGame(ISearchable searchable); //return path?
+    String saveGame(); //return path?ISearchable searchable
     Properties getProperties();
     Properties getAbout();
     void solveGame();

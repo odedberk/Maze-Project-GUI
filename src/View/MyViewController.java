@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,9 +30,49 @@ public class MyViewController implements IView, Observer {
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
     public void loadGame(ActionEvent actionEvent) {
-    }
 
+        Stage settings = new Stage();
+        settings.setMinWidth(250);
+        settings.setMinHeight(100);
+        settings.setResizable(false);
+        settings.setOpacity(0.97);
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("Load.fxml"));
+        Parent root = null;
+        getLoadGames();
+
+
+        //LoadController.setList(temp);
+
+        try {
+            root = fxml.load();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Cannot open window!");
+            e.printStackTrace();
+        }
+        LoadController loadController = fxml.getController();
+        String[] game = new String[1];
+        loadController.setChooseGame(game);
+
+//        LinkedList<String>temp = new LinkedList<>();
+//        temp.add("eilam");
+//        loadController.setListTwo(temp);
+//
+//
+        settings.setTitle("Load Games");
+        settings.setScene(new Scene(root));
+        settings.initModality(Modality.WINDOW_MODAL);
+        settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
+        settings.showAndWait();
+        //if(game[0] != null)
+
+
+
+    }
+    private void getLoadGames(){
+        viewModel.getLoadGames();
+    }
     public void saveGame(ActionEvent actionEvent) {
+        this.viewModel.saveGame();
     }
 
     public void showProperties(ActionEvent actionEvent) {
@@ -54,9 +95,14 @@ public class MyViewController implements IView, Observer {
                 });
             }
 
+
             if (arg instanceof Solution){
                 System.out.println("solved!");
                 //TODO - SHOW SOLUTION ON CANVAS
+            }
+
+            else {
+                LoadController.setList((LinkedList<String>) arg);
             }
         }
 

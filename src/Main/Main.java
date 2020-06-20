@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class Main extends Application {
 
@@ -24,6 +26,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Server mazeGeneratingServer = new Server(5400, 10000, new ServerStrategyGenerateMaze());
+
         Server mazeSolvingServer = new Server(5401, 10000, new ServerStrategySolveSearchProblem());
         MyModel myModel= new MyModel(mazeGeneratingServer,mazeSolvingServer);
         primaryStage.setOnCloseRequest(event ->  myModel.closeProgram());
