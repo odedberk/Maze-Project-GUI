@@ -237,10 +237,7 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(mazeSolution[0]);
     }
 
-    @Override
-    public Solution getSolution(ISearchable searchable) {
-        return null;
-    }
+
 
     @Override
     public void assignObserver(Observer o) {
