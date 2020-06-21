@@ -9,7 +9,6 @@ import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
 
 import java.net.Socket;
-import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,12 +38,7 @@ public class MyViewModel extends Observable implements Observer {
                 notifyObservers(arg);
             }
 
-            else if (arg instanceof Solution){
-                setChanged();
-                notifyObservers(arg);
-            }
-
-            else{
+            if (arg instanceof Solution){
                 setChanged();
                 notifyObservers(arg);
             }
@@ -52,8 +46,6 @@ public class MyViewModel extends Observable implements Observer {
                 setChanged();
                 notifyObservers(arg);
             }
-
-
         }
     }
 
