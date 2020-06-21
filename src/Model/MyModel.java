@@ -36,7 +36,10 @@ public class MyModel extends Observable implements IModel {
         Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
         File savedGames = new File(path+"\\resources\\SavedGames");
         String contents[] = savedGames.list();
-        saveCounter=contents.length;
+        if(contents!=null)
+            saveCounter=contents.length;
+        else
+            saveCounter=0;
     }
 
     @Override
@@ -126,6 +129,7 @@ public class MyModel extends Observable implements IModel {
         Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
         File savedGames = new File(path+"\\resources\\SavedGames");
         String contents[] = savedGames.list();
+
         for (String s : contents) {
             games.add(s);
         }
