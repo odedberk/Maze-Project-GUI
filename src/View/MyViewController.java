@@ -121,6 +121,7 @@ public class MyViewController implements IView, Observer {
             if (arg instanceof int[]) { //updated player position
                 mazeDisplayer.set_player_position((int[]) arg);
                 if (isGoalPosition((int[])arg)) {
+                    playMeow();
                     gameWon();
                 }
             }
@@ -146,7 +147,7 @@ public class MyViewController implements IView, Observer {
 
 
     private void gameWon() {
-        playMeow();
+//        playMeow();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;

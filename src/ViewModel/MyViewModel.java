@@ -46,6 +46,7 @@ public class MyViewModel extends Observable implements Observer {
             }
 
             else if(arg instanceof List){
+            if (arg instanceof Solution){
                 setChanged();
                 notifyObservers(arg);
             }
