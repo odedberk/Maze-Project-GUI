@@ -79,6 +79,8 @@ public class MyViewController implements IView, Observer {
     }
 
     public void showAbout(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Made by: Oded Barkovic and Eilam Gal. ");
+        alert.show();
     }
     public void playMusic() {
         String s = "resources/sounds/background.mp3";

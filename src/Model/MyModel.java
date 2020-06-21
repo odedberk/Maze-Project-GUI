@@ -50,14 +50,12 @@ public class MyModel extends Observable implements IModel {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        logger.setLevel(Level.INFO);
         logger.addAppender(appender);
 
     }
 
     @Override
     public void generateGame(int row, int col) {
-        logger.info("logTest");
         final Maze[] temp = new Maze[1];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() { //TODO - CHANGE PORT?
@@ -79,12 +77,15 @@ public class MyModel extends Observable implements IModel {
                         temp[0].print();
                     } catch (Exception var10) {
                         var10.printStackTrace();
+                        logger.fatal(var10.getMessage());
                     }
 
                 }
             });
+            logger.info(client.toString());
             client.communicateWithServer();
         } catch (UnknownHostException e) {
+            logger.fatal(e.getMessage());
             e.printStackTrace();
         }
 
@@ -93,6 +94,8 @@ public class MyModel extends Observable implements IModel {
         charPosition[1]=maze.getStartPosition().getColumnIndex();
         setChanged();
         notifyObservers(maze);
+        logger.info("new game. maze size "+row +"x"+col);
+
     }
 
 
@@ -119,6 +122,7 @@ public class MyModel extends Observable implements IModel {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         String now=formatter.format(date);
         String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
+        logger.info("trying to save "+game);
         try {//write the solution to file
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
             //System.out.println(path+"\\resources\\SavedGames");
@@ -127,6 +131,7 @@ public class MyModel extends Observable implements IModel {
             objectOutput.writeObject(maze);
             objectOutput.flush();
             objectOutput.close();
+            logger.info("game "+game + " was saved");
            // saves.put(game,path+"\\resources\\SavedGames\\"+game);
             saveCounter++;
             Alert saved = new Alert(Alert.AlertType.INFORMATION, "Saved file name:\n"+game);
@@ -134,6 +139,7 @@ public class MyModel extends Observable implements IModel {
             saved.show();
         } catch (IOException e) {
             e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return null;
     }
@@ -158,6 +164,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public Properties getAbout() {
+        logger.info("get about"+System.currentTimeMillis());
         return null;
     }
 
@@ -195,6 +202,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveGame() {
+        logger.info("player ask for solution"+System.currentTimeMillis());
         if (maze==null) {
             System.out.println("No maze to solve!");
             setChanged();
@@ -225,20 +233,18 @@ public class MyModel extends Observable implements IModel {
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                logger.fatal(e.getMessage());
                             }
                         }
                     });
             client.communicateWithServer();
+            logger.info(client.toString());
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
         setChanged();
         notifyObservers(mazeSolution[0]);
-    }
-
-    @Override
-    public Solution getSolution(ISearchable searchable) {
-        return null;
     }
 
     @Override
