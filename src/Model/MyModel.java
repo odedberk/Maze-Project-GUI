@@ -23,7 +23,7 @@ public class MyModel extends Observable implements IModel {
     private Server solverServer;
     private int[] charPosition;
     private Maze maze;
-    private HashMap<String,String> saves ;
+   // private HashMap<String,String> saves ;
     private int saveCounter;
 
     public MyModel (Server generator, Server solver){
@@ -32,8 +32,11 @@ public class MyModel extends Observable implements IModel {
         generatorServer.start();
         solverServer.start();
         charPosition=new int[2];
-        saveCounter=0;
-        saves = new HashMap<>();
+        //saves = new HashMap<>();
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+        File savedGames = new File(path+"\\resources\\SavedGames");
+        String contents[] = savedGames.list();
+        saveCounter=contents.length;
     }
 
     @Override
@@ -79,7 +82,8 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void loadGame(String fileName) {
         try {
-            FileInputStream fileInputStream = new FileInputStream(saves.get(fileName));
+            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+            FileInputStream fileInputStream = new FileInputStream(path+"\\resources\\SavedGames\\"+fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             this.maze=(Maze)objectInputStream.readObject();
             charPosition[0]=maze.getStartPosition().getRowIndex();
@@ -106,7 +110,7 @@ public class MyModel extends Observable implements IModel {
             objectOutput.writeObject(maze);
             objectOutput.flush();
             objectOutput.close();
-            saves.put(game,path+"\\resources\\SavedGames\\"+game);
+           // saves.put(game,path+"\\resources\\SavedGames\\"+game);
             saveCounter++;
             Alert saved = new Alert(Alert.AlertType.INFORMATION, "Saved file name:\n"+game);
             saved.setHeaderText("Maze and player position saved");
@@ -119,7 +123,10 @@ public class MyModel extends Observable implements IModel {
 
     public void getSavedGames(){
         LinkedList<String> games = new LinkedList<>();
-        for (String s : saves.keySet()) {
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+        File savedGames = new File(path+"\\resources\\SavedGames");
+        String contents[] = savedGames.list();
+        for (String s : contents) {
             games.add(s);
         }
         setChanged();
