@@ -126,8 +126,6 @@ public class MyModel extends Observable implements IModel {
             objectOutput.flush();
             objectOutput.close();
             logger.info("game "+game + " was saved");
-           // saves.put(game,path+"\\resources\\SavedGames\\"+game);
-            saveCounter++;
             Alert saved = new Alert(Alert.AlertType.INFORMATION, "Saved file name:\n"+game);
             saved.setHeaderText("Maze and player position saved");
             saved.show();
@@ -241,10 +239,7 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(mazeSolution[0]);
     }
 
-    @Override
-    public Solution getSolution(ISearchable searchable) {
-        return null;
-    }
+
 
     @Override
     public void assignObserver(Observer o) {

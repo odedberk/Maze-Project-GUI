@@ -85,6 +85,7 @@ public class MyViewModel extends Observable implements Observer {
             case RIGHT:
                 direction = IModel.Direction.RIGHT;
                 break;
+
         }
 
         model.moveCharacter(direction);
