@@ -25,8 +25,6 @@ public class MyModel extends Observable implements IModel {
     private int[] charPosition;
     private Maze maze;
     private static Logger logger = Logger.getLogger(String.valueOf(MyModel.class));
-   // private HashMap<String,String> saves ;
-    private int saveCounter;
 
     public MyModel (Server generator, Server solver){
         generatorServer=generator;
@@ -34,28 +32,20 @@ public class MyModel extends Observable implements IModel {
         generatorServer.start();
         solverServer.start();
         charPosition=new int[2];
-        //saves = new HashMap<>();
-        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
-        File savedGames = new File(path+"\\resources\\SavedGames");
-        String contents[] = savedGames.list();
-        if(contents!=null)
-            saveCounter=contents.length;
-        else
-            saveCounter=0;
-
-        SimpleLayout simpleLayout = new SimpleLayout();
-        Appender appender = null;
         try {
-            appender = new FileAppender(simpleLayout, "logs/test.txt");
+            logger.addAppender(new FileAppender(new SimpleLayout(), "logs/log.txt"));
         } catch(Exception e) {
             e.printStackTrace();
         }
-        logger.addAppender(appender);
-
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String now=formatter.format(date);
+        logger.info("\n--------"+now+"--------\n");
     }
 
     @Override
     public void generateGame(int row, int col) {
+        logger.info("logTest");
         final Maze[] temp = new Maze[1];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() { //TODO - CHANGE PORT?
@@ -76,6 +66,7 @@ public class MyModel extends Observable implements IModel {
                         Thread.sleep(1000L);
                         temp[0].print();
                     } catch (Exception var10) {
+
                         var10.printStackTrace();
                         logger.fatal(var10.getMessage());
                     }
@@ -101,6 +92,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void loadGame(String fileName) {
+        logger.info("Trying To load maze: "+fileName);
         try {
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
             FileInputStream fileInputStream = new FileInputStream(path+"\\resources\\SavedGames\\"+fileName);
@@ -110,15 +102,17 @@ public class MyModel extends Observable implements IModel {
             charPosition[1]=maze.getStartPosition().getColumnIndex();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
+
             e.printStackTrace();
         }
+        logger.info("Maze loaded successfully");
         setChanged();
         notifyObservers(maze);
     }
 
     @Override
     public String saveGame() {//ISearchable searchable
-        Date date = new Date(); // This object contains the current date value
+        Date date = new Date(); // current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         String now=formatter.format(date);
         String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
@@ -245,6 +239,11 @@ public class MyModel extends Observable implements IModel {
         }
         setChanged();
         notifyObservers(mazeSolution[0]);
+    }
+
+    @Override
+    public Solution getSolution(ISearchable searchable) {
+        return null;
     }
 
     @Override

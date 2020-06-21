@@ -2,5 +2,4 @@ INFO - logTest
 INFO - logTest
 INFO - logTest
 INFO - logTest
-INFO - Client.Client@43e4b23c
-INFO - new game. maze size 10x10
+INFO - logTest
