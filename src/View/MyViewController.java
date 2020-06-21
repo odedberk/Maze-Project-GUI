@@ -68,7 +68,12 @@ public class MyViewController implements IView, Observer {
         LoadController loadController = fxml.getController();
         String[] game = new String[1];
         loadController.setChooseGame(game);
-        settings.show();
+        settings.setTitle("Load Games");
+        settings.setScene(new Scene(root));
+        settings.initModality(Modality.WINDOW_MODAL);
+        settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
+        settings.showAndWait();
+        //settings.show();
     }
     private void getLoadGames(){
         viewModel.getLoadGames();
@@ -123,7 +128,7 @@ public class MyViewController implements IView, Observer {
                 }
             }
             if(arg instanceof List){
-                LoadController.games=(LinkedList<String>) arg;
+                LoadController.setList((LinkedList<String>)arg);
             }
         }
     }

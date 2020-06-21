@@ -51,11 +51,6 @@ public class LoadController  implements Initializable {
         if(games != null)
             games=gList;
     }
-
-//    public void setListTwo(LinkedList<String> l){
-//        list.addAll(l);
-//    }
-
     public void setChooseGame(String[] chooseGame) {
         ChooseGame = chooseGame;
     }
