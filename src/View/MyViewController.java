@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,7 @@ public class MyViewController implements IView, Observer {
     public MyViewModel viewModel;
     public ToggleButton solveBtn;
     public Button saveBtn;
+    public MenuItem menuSaveBtn;
     public ToggleButton playBtn;
     public ToggleButton fishBtn;
     public ToggleButton catBtn;
@@ -63,8 +65,7 @@ public class MyViewController implements IView, Observer {
         loadController.setChooseGame(game);
         settings.setTitle("Load Games");
         settings.setScene(new Scene(root));
-        settings.initModality(Modality.WINDOW_MODAL);
-        settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
+        settings.initModality(Modality.APPLICATION_MODAL);
         settings.showAndWait();
         if(game[0]!=null)
             this.viewModel.LoadGame(game[0]);
@@ -138,6 +139,7 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.setDisable(false);
         solveBtn.setDisable(false);
         saveBtn.setDisable(false);
+        menuSaveBtn.setDisable(false);
         catBtn.setDisable(false);
         fishBtn.setDisable(false);
     }
@@ -219,10 +221,9 @@ public class MyViewController implements IView, Observer {
         generator.setSize(size);
         settings.setTitle("Set maze size");
         settings.setScene(new Scene(root));
-        settings.initModality(Modality.WINDOW_MODAL);
+        settings.initModality(Modality.APPLICATION_MODAL);
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.showAndWait();
-
         //GENERATE MAZE WITH INPUT VALUES
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)
