@@ -84,6 +84,7 @@ public class MyViewController implements IView, Observer {
         String s = "resources/sounds/background.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
         mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.setVolume(0.6);
         mediaPlayer.setCycleCount(5);
         mediaPlayer.play();
     }

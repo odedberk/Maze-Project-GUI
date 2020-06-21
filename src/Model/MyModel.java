@@ -37,10 +37,12 @@ public class MyModel extends Observable implements IModel {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String now=formatter.format(date);
         logger.info("\n--------"+now+"--------\n");
+        logger.info("Starting servers..");
     }
 
     @Override
@@ -96,7 +98,7 @@ public class MyModel extends Observable implements IModel {
             charPosition[1]=maze.getStartPosition().getColumnIndex();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
-
+            logger.error("Couldn't load maze file");
             e.printStackTrace();
         }
         logger.info("Maze loaded successfully");
@@ -128,11 +130,11 @@ public class MyModel extends Observable implements IModel {
     }
 
     public void getSavedGames(){
+        logger.info("Trying to load games list");
         LinkedList<String> games = new LinkedList<>();
         Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
         File savedGames = new File(path+"\\resources\\SavedGames");
         String contents[] = savedGames.list();
-
         for (String s : contents) {
             games.add(s);
         }
@@ -173,7 +175,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
         }
-        maze.setStart(new Position(charPosition[0],charPosition[1])); // Solve from current player's position
+        maze.setStart(new Position(charPosition[0],charPosition[1])); // update current player's position in maze (for showing relevant solution)
         setChanged();
         notifyObservers(charPosition);
     }
@@ -226,17 +228,13 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public Solution getSolution(ISearchable searchable) {
-        return null;
-    }
-
-    @Override
     public void assignObserver(Observer o) {
         addObserver(o);
     }
 
     @Override
     public void closeProgram() {
+        logger.info("Shutting down servers and closing the program!");
         generatorServer.stop();
         solverServer.stop();
         System.exit(0);

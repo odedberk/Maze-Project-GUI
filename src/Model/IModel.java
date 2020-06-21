@@ -15,7 +15,6 @@ public interface IModel {
     Properties getAbout();
     void moveCharacter(Direction direction);
     void solveGame();
-    Solution getSolution(ISearchable searchable);
     void assignObserver(Observer o);
     void closeProgram();
 

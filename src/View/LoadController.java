@@ -35,13 +35,6 @@ public class LoadController  implements Initializable {
     }
 
 
-
-    public void ChooseFile(ActionEvent actionEvent) {
-        FileChooser chooser = new FileChooser();
-        chooser.setInitialDirectory(new File("SavedGames"));
-
-        File fileChoose= chooser.showOpenDialog(null);
-    }
     private void addGame(){
         list.removeAll(list);
         list.addAll(games);
@@ -61,7 +54,7 @@ public class LoadController  implements Initializable {
             ChooseGame[0]=game;
         if(game==null){
             Alert notChoose = new Alert(Alert.AlertType.WARNING);
-            notChoose.setContentText("you didnt choose game");
+            notChoose.setContentText("You must choose a game");
             notChoose.show();
         }
         else

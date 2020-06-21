@@ -1,5 +1,0 @@
-INFO - logTest
-INFO - logTest
-INFO - logTest
-INFO - logTest
-INFO - logTest

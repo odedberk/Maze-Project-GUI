@@ -19,25 +19,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
-//        File savedGames = new File(path+"\\resources\\SavedGames\\history.text");
-//        if(savedGames.exists()){
-//            System.out.println("yes");
-//        }
-//        else{
-//            System.out.println("not");
-//        }
-
 
         Server mazeGeneratingServer = new Server(5400, 10000, new ServerStrategyGenerateMaze());
         Server mazeSolvingServer = new Server(5401, 10000, new ServerStrategySolveSearchProblem());
         MyModel myModel= new MyModel(mazeGeneratingServer,mazeSolvingServer);
         primaryStage.setOnCloseRequest(event ->  myModel.closeProgram());
-
         primaryStage.setMinHeight(450);
-//        primaryStage.setMaxHeight(1000);
         primaryStage.setMinWidth(950);
-//        primaryStage.setMaxWidth(1200);
         primaryStage.setResizable(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
