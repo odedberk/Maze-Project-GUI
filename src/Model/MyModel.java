@@ -83,6 +83,8 @@ public class MyModel extends Observable implements IModel {
         charPosition[1]=maze.getStartPosition().getColumnIndex();
         setChanged();
         notifyObservers(maze);
+        logger.info("new game. maze size "+row +"x"+col);
+
     }
 
 
@@ -112,6 +114,7 @@ public class MyModel extends Observable implements IModel {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         String now=formatter.format(date);
         String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
+        logger.info("trying to save "+game);
         try {//write the solution to file
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
             FileOutputStream outputStream = new FileOutputStream(path+"\\resources\\SavedGames\\"+game);
@@ -119,11 +122,13 @@ public class MyModel extends Observable implements IModel {
             objectOutput.writeObject(maze);
             objectOutput.flush();
             objectOutput.close();
+            logger.info("game "+game + " was saved");
             Alert saved = new Alert(Alert.AlertType.INFORMATION, "Saved file name:\n"+game);
             saved.setHeaderText("Maze and player position saved");
             saved.show();
         } catch (IOException e) {
             e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return null;
     }
@@ -148,6 +153,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public Properties getAbout() {
+        logger.info("get about"+System.currentTimeMillis());
         return null;
     }
 
@@ -215,6 +221,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveGame() {
+        logger.info("player ask for solution"+System.currentTimeMillis());
         if (maze==null) {
             System.out.println("No maze to solve!");
             setChanged();
@@ -245,16 +252,21 @@ public class MyModel extends Observable implements IModel {
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                logger.fatal(e.getMessage());
                             }
                         }
                     });
             client.communicateWithServer();
+            logger.info(client.toString());
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            logger.fatal(e.getMessage());
         }
         setChanged();
         notifyObservers(mazeSolution[0]);
     }
+
+
 
     @Override
     public void assignObserver(Observer o) {
