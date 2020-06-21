@@ -7,6 +7,7 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
 
+import java.io.File;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;

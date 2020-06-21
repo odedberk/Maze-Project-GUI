@@ -11,10 +11,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+//        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+//        File savedGames = new File(path+"\\resources\\SavedGames\\history.text");
+//        if(savedGames.exists()){
+//            System.out.println("yes");
+//        }
+//        else{
+//            System.out.println("not");
+//        }
+
 
         Server mazeGeneratingServer = new Server(5400, 10000, new ServerStrategyGenerateMaze());
         Server mazeSolvingServer = new Server(5401, 10000, new ServerStrategySolveSearchProblem());
