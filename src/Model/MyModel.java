@@ -114,7 +114,6 @@ public class MyModel extends Observable implements IModel {
         String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
         try {//write the solution to file
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
-            //System.out.println(path+"\\resources\\SavedGames");
             FileOutputStream outputStream = new FileOutputStream(path+"\\resources\\SavedGames\\"+game);
             ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
             objectOutput.writeObject(maze);
@@ -161,17 +160,47 @@ public class MyModel extends Observable implements IModel {
                     charPosition[0]--;
                 break;
 
-            case DOWN: //Down
+            case DOWN:
               if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1]))
                   charPosition[0]++;
                 break;
-            case LEFT: //Left
+
+            case LEFT:
               if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1))
                   charPosition[1]--;
                 break;
-            case RIGHT: //Right
-              if(charPosition[1]!=maze.getMaze()[0].length-1&& !isWall( charPosition[0],charPosition[1]+1))
+
+            case RIGHT:
+              if(charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0],charPosition[1]+1))
                   charPosition[1]++;
+                break;
+
+            case UP_RIGHT:
+                if(charPosition[0]!=0 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]-1,charPosition[1]+1)) {
+                    charPosition[0]--;
+                    charPosition[1]++;
+                }
+                break;
+
+            case UP_LEFT:
+                if(charPosition[0]!=0 && charPosition[1]!=0 && !isWall( charPosition[0]-1,charPosition[1]-1)) {
+                    charPosition[0]--;
+                    charPosition[1]--;
+                }
+                break;
+
+            case DOWN_LEFT:
+                if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=0 && !isWall( charPosition[0]+1,charPosition[1]-1)) {
+                    charPosition[0]++;
+                    charPosition[1]--;
+                }
+                break;
+
+            case DOWN_RIGHT:
+                if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]+1,charPosition[1]+1)) {
+                    charPosition[0]++;
+                    charPosition[1]++;
+                }
                 break;
 
         }
