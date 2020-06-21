@@ -50,7 +50,6 @@ public class MyViewController implements IView, Observer {
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
     public void loadGame(ActionEvent actionEvent) {
-
         Stage settings = new Stage();
         settings.setMinWidth(250);
         settings.setMinHeight(100);
@@ -59,10 +58,7 @@ public class MyViewController implements IView, Observer {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("Load.fxml"));
         Parent root = null;
         getLoadGames();
-
-
         //LoadController.setList(temp);
-
         try {
             root = fxml.load();
         } catch (IOException e) {
@@ -72,6 +68,7 @@ public class MyViewController implements IView, Observer {
         LoadController loadController = fxml.getController();
         String[] game = new String[1];
         loadController.setChooseGame(game);
+        settings.show();
     }
     private void getLoadGames(){
         viewModel.getLoadGames();
