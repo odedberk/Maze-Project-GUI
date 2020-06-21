@@ -29,6 +29,7 @@ public class MyModel extends Observable implements IModel {
     private int saveCounter;
 
     public MyModel (Server generator, Server solver){
+        System.out.println("g");
         generatorServer=generator;
         solverServer=solver;
         generatorServer.start();
