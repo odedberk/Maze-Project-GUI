@@ -61,7 +61,7 @@ public class MyViewController implements IView, Observer {
         settings.setOpacity(0.97);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("Load.fxml"));
         Parent root = null;
-        getLoadGames();
+        //getLoadGames();
 
 
         //LoadController.setList(temp);
@@ -69,13 +69,13 @@ public class MyViewController implements IView, Observer {
         try {
             root = fxml.load();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Cannot open window!");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot open window!");
             e.printStackTrace();
         }
         LoadController loadController = fxml.getController();
         String[] game = new String[1];
         loadController.setChooseGame(game);
-
+    }
     public void saveGame(ActionEvent actionEvent) {
     }
 
