@@ -24,7 +24,7 @@ public class MyModel extends Observable implements IModel {
     private Server solverServer;
     private int[] charPosition;
     private Maze maze;
-    private static Logger logger = org.apache.log4j.Logger.getLogger(String.valueOf(MyModel.class));
+    private static Logger logger = Logger.getLogger(String.valueOf(MyModel.class));
    // private HashMap<String,String> saves ;
     private int saveCounter;
 
