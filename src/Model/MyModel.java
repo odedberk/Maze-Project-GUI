@@ -9,6 +9,7 @@ import algorithms.search.AState;
 import algorithms.search.ISearchable;
 import algorithms.search.Solution;
 import javafx.scene.control.Alert;
+import org.apache.log4j.*;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -23,6 +24,7 @@ public class MyModel extends Observable implements IModel {
     private Server solverServer;
     private int[] charPosition;
     private Maze maze;
+    private static Logger logger = org.apache.log4j.Logger.getLogger(String.valueOf(MyModel.class));
    // private HashMap<String,String> saves ;
     private int saveCounter;
 
@@ -40,10 +42,22 @@ public class MyModel extends Observable implements IModel {
             saveCounter=contents.length;
         else
             saveCounter=0;
+
+        SimpleLayout simpleLayout = new SimpleLayout();
+        Appender appender = null;
+        try {
+            appender = new FileAppender(simpleLayout, "logs/test.txt");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        logger.setLevel(Level.INFO);
+        logger.addAppender(appender);
+
     }
 
     @Override
     public void generateGame(int row, int col) {
+        logger.info("logTest");
         final Maze[] temp = new Maze[1];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() { //TODO - CHANGE PORT?
