@@ -8,6 +8,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
 import algorithms.search.Solution;
+import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -107,6 +108,9 @@ public class MyModel extends Observable implements IModel {
             objectOutput.close();
             saves.put(game,path+"\\resources\\SavedGames\\"+game);
             saveCounter++;
+            Alert saved = new Alert(Alert.AlertType.INFORMATION, "Saved file name:\n"+game);
+            saved.setHeaderText("Maze and player position saved");
+            saved.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
