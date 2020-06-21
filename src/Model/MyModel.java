@@ -115,7 +115,6 @@ public class MyModel extends Observable implements IModel {
         for (int i = 0; i < 50; i++) {
             games.add(i+"");
         }
-        games.add("tuk");
         setChanged();
         notifyObservers(games);
     }

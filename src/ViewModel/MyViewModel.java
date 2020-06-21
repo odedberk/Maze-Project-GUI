@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,7 +45,7 @@ public class MyViewModel extends Observable implements Observer {
                 notifyObservers(arg);
             }
 
-            else{
+            else if(arg instanceof List){
                 setChanged();
                 notifyObservers(arg);
             }

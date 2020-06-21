@@ -31,11 +31,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.*;
 import java.nio.file.Paths;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Set;
 
 public class MyViewController implements IView, Observer {
     private int[] size = new int[3];
@@ -61,7 +58,7 @@ public class MyViewController implements IView, Observer {
         settings.setOpacity(0.97);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("Load.fxml"));
         Parent root = null;
-        //getLoadGames();
+        getLoadGames();
 
 
         //LoadController.setList(temp);
@@ -76,6 +73,10 @@ public class MyViewController implements IView, Observer {
         String[] game = new String[1];
         loadController.setChooseGame(game);
     }
+    private void getLoadGames(){
+        viewModel.getLoadGames();
+    }
+
     public void saveGame(ActionEvent actionEvent) {
     }
 
@@ -122,6 +123,9 @@ public class MyViewController implements IView, Observer {
                 if (isGoalPosition((int[])arg)) {
                     gameWon();
                 }
+            }
+            if(arg instanceof List){
+                LoadController.games=(LinkedList<String>) arg;
             }
         }
     }
