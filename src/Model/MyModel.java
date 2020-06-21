@@ -4,10 +4,9 @@ import Client.*;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
 import java.io.*;
@@ -51,7 +50,7 @@ public class MyModel extends Observable implements IModel {
                         byte[] compressedMaze = (byte[])fromServer.readObject();
                         System.out.println(compressedMaze.length);
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        byte[] decompressedMaze = new byte[250000]; //max 500X500
+                        byte[] decompressedMaze = new byte[300000]; //max 500X500
                         is.read(decompressedMaze);
                         temp[0] = new Maze(decompressedMaze);
                         Thread.sleep(1000L);
@@ -68,6 +67,8 @@ public class MyModel extends Observable implements IModel {
         }
 
         maze=temp[0];
+        charPosition[0]=maze.getStartPosition().getRowIndex();
+        charPosition[1]=maze.getStartPosition().getColumnIndex();
         setChanged();
         notifyObservers(maze);
     }
@@ -130,6 +131,38 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
+    public void moveCharacter(Direction direction) {
+        switch(direction)
+        {
+            case UP:
+                if(charPosition[0]!=0 && !isWall(charPosition[0]-1,charPosition[1]))
+                    charPosition[0]--;
+                break;
+
+            case DOWN: //Down
+              if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1]))
+                  charPosition[0]++;
+                break;
+            case LEFT: //Left
+              if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1))
+                  charPosition[1]--;
+                break;
+            case RIGHT: //Right
+              if(charPosition[1]!=maze.getMaze()[0].length-1&& !isWall( charPosition[0],charPosition[1]+1))
+                  charPosition[1]++;
+                break;
+
+        }
+
+        setChanged();
+        notifyObservers(charPosition);
+    }
+
+    private boolean isWall(int row, int col) {
+        return maze.getMaze()[row][col]==1;
+    }
+
+    @Override
     public void solveGame() {
         if (maze==null) {
             System.out.println("No maze to solve!");
@@ -137,7 +170,7 @@ public class MyModel extends Observable implements IModel {
             notifyObservers(null);
             return;
         }
-
+        maze.setStart(new Position(charPosition[0],charPosition[1])); // Solve from current player's position
         final Solution[] mazeSolution = new Solution[1];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() { //TODO - CHANGE PORT?

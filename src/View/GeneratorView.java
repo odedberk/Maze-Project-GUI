@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.text.NumberFormat;
 
-public class GeneratorViewController {
+public class GeneratorView {
     public Slider rowSlider;
     public Slider colSlider;
     public TextField rowsField;

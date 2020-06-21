@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="262.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GeneratorViewController">
+<AnchorPane prefHeight="262.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GeneratorView">
    <children>
       <GridPane minHeight="300.0" minWidth="250.0" prefHeight="330.0" prefWidth="251.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
         <columnConstraints>
@@ -33,7 +33,7 @@
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="181.0" text="Number of columns" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="colsField" alignment="CENTER" promptText="2" text="10" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Slider fx:id="colSlider" blockIncrement="100.0" max="500.0" min="2.0" prefHeight="14.0" prefWidth="188.0" value="10.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#sendValues" prefHeight="25.0" prefWidth="176.0" text="Let's Fish!" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#sendValues" prefHeight="25.0" prefWidth="176.0" text="Let's Fish!" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
       </GridPane>
    </children>
