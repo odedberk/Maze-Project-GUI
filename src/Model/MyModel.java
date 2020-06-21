@@ -80,6 +80,8 @@ public class MyModel extends Observable implements IModel {
             FileInputStream fileInputStream = new FileInputStream(saves.get(fileName));
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             this.maze=(Maze)objectInputStream.readObject();
+            charPosition[0]=maze.getStartPosition().getRowIndex();
+            charPosition[1]=maze.getStartPosition().getColumnIndex();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -107,13 +109,10 @@ public class MyModel extends Observable implements IModel {
         return null;
     }
 
-    public void getLoadGames(){
+    public void getSavedGames(){
         LinkedList<String> games = new LinkedList<>();
         for (String s : saves.keySet()) {
             games.add(s);
-        }
-        for (int i = 0; i < 50; i++) {
-            games.add(i+"");
         }
         setChanged();
         notifyObservers(games);

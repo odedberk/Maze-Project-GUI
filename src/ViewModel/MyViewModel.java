@@ -4,12 +4,9 @@ import Model.IModel;
 import Model.MyModel;
 import algorithms.mazeGenerators.Maze;
 
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
 
-import java.net.Socket;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -61,8 +58,12 @@ public class MyViewModel extends Observable implements Observer {
     public void solveMaze() {
         model.solveGame();
     }
-    public void getLoadGames(){
-        ((MyModel)this.model).getLoadGames();
+    public void LoadGame(String game){
+        this.model.loadGame(game);
+    }
+
+    public void getSavedGames(){
+        ((MyModel)this.model).getSavedGames();
     }
     public void saveGame(){
         this.model.saveGame();

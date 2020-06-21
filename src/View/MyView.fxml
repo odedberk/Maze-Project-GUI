@@ -49,7 +49,7 @@
                <children>
                   <Button fx:id="newBtn" mnemonicParsing="false" onAction="#getSettings" prefHeight="23.0" prefWidth="111.0" text="New Maze" />
                   <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#loadGame" prefHeight="23.0" prefWidth="145.0" text="Load Maze" GridPane.rowIndex="1" />
-                  <Button fx:id="saveBtn" disable="true" mnemonicParsing="false" prefHeight="23.0" prefWidth="145.0" text="Save Maze" GridPane.rowIndex="2" />
+                  <Button fx:id="saveBtn" disable="true" mnemonicParsing="false" onAction="#saveGame" prefHeight="23.0" prefWidth="145.0" text="Save Maze" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

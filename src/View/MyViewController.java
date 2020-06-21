@@ -1,33 +1,26 @@
 package View;
 
 
-import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Font;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -73,13 +66,15 @@ public class MyViewController implements IView, Observer {
         settings.initModality(Modality.WINDOW_MODAL);
         settings.initOwner( ((Node)actionEvent.getSource()).getScene().getWindow() );
         settings.showAndWait();
-        //settings.show();
+        if(game[0]!=null)
+            this.viewModel.LoadGame(game[0]);
     }
     private void getLoadGames(){
-        viewModel.getLoadGames();
+        viewModel.getSavedGames();
     }
 
     public void saveGame(ActionEvent actionEvent) {
+        this.viewModel.saveGame();
     }
 
     public void showAbout(ActionEvent actionEvent) {
