@@ -14,6 +14,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MyModel extends Observable implements IModel {
@@ -96,7 +97,10 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public String saveGame() {//ISearchable searchable
-        String game = "Game"+saveCounter;
+        Date date = new Date(); // This object contains the current date value
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        String now=formatter.format(date);
+        String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
         try {//write the solution to file
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
             //System.out.println(path+"\\resources\\SavedGames");
@@ -158,7 +162,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
         }
-
+        maze.setStart(new Position(charPosition[0],charPosition[1])); // Solve from current player's position
         setChanged();
         notifyObservers(charPosition);
     }
@@ -175,7 +179,6 @@ public class MyModel extends Observable implements IModel {
             notifyObservers(null);
             return;
         }
-        maze.setStart(new Position(charPosition[0],charPosition[1])); // Solve from current player's position
         final Solution[] mazeSolution = new Solution[1];
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() { //TODO - CHANGE PORT?
