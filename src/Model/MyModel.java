@@ -30,6 +30,7 @@ public class MyModel extends Observable implements IModel {
 
     public MyModel (Server generator, Server solver){
         System.out.println("g");
+        System.out.println("g");
         generatorServer=generator;
         solverServer=solver;
         generatorServer.start();
