@@ -218,12 +218,12 @@ public class MazeDisplayer extends Canvas {
             }
 
             double h_player = getRow_player() * cellHeight;
-            setPlayerY(h_player+cellHeight/2);
-            setPlayerHeight(cellHeight/2);
-//            System.out.println(graphicsContext.);
+            setPlayerY(h_player+cellHeight/2); //center Y position
+            setPlayerHeight(cellHeight/2); //half cell height (to calculate bounds)
+
             double w_player = getCol_player() * cellWidth;
-            setPlayerX(w_player+cellWidth/2);
-            setPlayerWidth(cellWidth/2);
+            setPlayerX(w_player+cellWidth/2); //center X position
+            setPlayerWidth(cellWidth/2); //half cell width
 
             Image playerImage = null;
             try {
