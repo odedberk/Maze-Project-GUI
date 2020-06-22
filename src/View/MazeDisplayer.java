@@ -34,6 +34,43 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileGoal = new SimpleStringProperty();
     StringProperty imageTreat = new SimpleStringProperty("resources/Images/treats.png");
+    double playerX;
+    double playerY;
+    double playerWidth;
+    double playerHeight;
+
+    public double getPlayerWidth() {
+        return playerWidth;
+    }
+
+    public void setPlayerWidth(double playerWidth) {
+        this.playerWidth = playerWidth;
+    }
+
+    public double getPlayerHeight() {
+        return playerHeight;
+    }
+
+    public void setPlayerHeight(double playerHeight) {
+        this.playerHeight = playerHeight;
+    }
+
+
+    public double getPlayerX() {
+        return playerX;
+    }
+
+    public void setPlayerX(double playerX) {
+        this.playerX = playerX;
+    }
+
+    public double getPlayerY() {
+        return playerY;
+    }
+
+    public void setPlayerY(double playerY) {
+        this.playerY = playerY;
+    }
 
     @Override
     public boolean isResizable() {
@@ -181,7 +218,13 @@ public class MazeDisplayer extends Canvas {
             }
 
             double h_player = getRow_player() * cellHeight;
+            setPlayerY(h_player+cellHeight/2);
+            setPlayerHeight(cellHeight/2);
+//            System.out.println(graphicsContext.);
             double w_player = getCol_player() * cellWidth;
+            setPlayerX(w_player+cellWidth/2);
+            setPlayerWidth(cellWidth/2);
+
             Image playerImage = null;
             try {
                 playerImage = new Image(new FileInputStream(getImageFileNamePlayer()));
@@ -191,6 +234,7 @@ public class MazeDisplayer extends Canvas {
             if (highlightChararcter)
                 graphicsContext.fillOval(w_player,h_player,cellWidth,cellHeight);
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
+
 
             if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()){
                 double h_goal = (maze.getGoalPosition().getRowIndex()) *cellHeight;

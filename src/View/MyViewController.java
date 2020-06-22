@@ -253,4 +253,18 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.highlightChararcter = !mazeDisplayer.highlightChararcter;
         mazeDisplayer.draw();
     }
+
+    public void dragPlayer(MouseEvent mouseEvent) {
+//        System.out.println("dragging..."); //DEBUG
+        double playerX = mazeDisplayer.getPlayerX();
+        double playerY = mazeDisplayer.getPlayerY();
+        double playerHeight = mazeDisplayer.getPlayerHeight();
+        double playerWidth = mazeDisplayer.getPlayerWidth();
+        if (mazeDisplayer.gotMaze()){
+            viewModel.moveCharacter(mouseEvent,playerX, playerY, playerWidth, playerHeight);
+            mouseEvent.consume();
+            if (mazeDisplayer.showSolution)
+                viewModel.solveMaze();
+        }
+    }
 }

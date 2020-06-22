@@ -6,6 +6,7 @@ import algorithms.mazeGenerators.Maze;
 
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.util.List;
@@ -22,8 +23,8 @@ public class MyViewModel extends Observable implements Observer {
     }
 
 
-    public void generateMaze(int row,int col){
-        model.generateGame(row,col);
+    public void generateMaze(int row, int col) {
+        model.generateGame(row, col);
     }
 
     public void closeProgram() {
@@ -32,22 +33,18 @@ public class MyViewModel extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof IModel){
-            if (arg instanceof Maze){
+        if (o instanceof IModel) {
+            if (arg instanceof Maze) {
+                setChanged();
+                notifyObservers(arg);
+            } else if (arg instanceof Solution) {
+                setChanged();
+                notifyObservers(arg);
+            } else if (arg instanceof List) {
                 setChanged();
                 notifyObservers(arg);
             }
-
-            else if (arg instanceof Solution){
-                setChanged();
-                notifyObservers(arg);
-            }
-
-            else if(arg instanceof List){
-                setChanged();
-                notifyObservers(arg);
-            }
-            if (arg instanceof int[]){
+            if (arg instanceof int[]) {
                 setChanged();
                 notifyObservers(arg);
             }
@@ -59,20 +56,22 @@ public class MyViewModel extends Observable implements Observer {
     public void solveMaze() {
         model.solveGame();
     }
-    public void LoadGame(String game){
+
+    public void LoadGame(String game) {
         this.model.loadGame(game);
     }
 
-    public void getSavedGames(){
-        ((MyModel)this.model).getSavedGames();
+    public void getSavedGames() {
+        ((MyModel) this.model).getSavedGames();
     }
-    public void saveGame(){
+
+    public void saveGame() {
         this.model.saveGame();
     }
 
     public void moveCharacter(KeyEvent keyEvent) {
         MyModel.Direction direction = MyModel.Direction.NONE;
-        switch (keyEvent.getCode()){
+        switch (keyEvent.getCode()) {
             case UP:
             case NUMPAD8:
             case DIGIT8:
@@ -112,5 +111,24 @@ public class MyViewModel extends Observable implements Observer {
         }
 
         model.moveCharacter(direction);
+    }
+
+    public void moveCharacter(MouseEvent mouseEvent, double playerX, double playerY, double playerWidth, double playerHeight) {
+        if (mouseEvent.getX()>playerX+playerWidth)
+        {
+            model.moveCharacter(IModel.Direction.RIGHT);
+        }
+        if (mouseEvent.getX()<playerX-playerWidth)
+        {
+            model.moveCharacter(IModel.Direction.LEFT);
+        }
+        if (mouseEvent.getY()<playerY-playerHeight)
+        {
+            model.moveCharacter(IModel.Direction.UP);
+        }
+        if (mouseEvent.getY()>playerY+playerHeight)
+        {
+            model.moveCharacter(IModel.Direction.DOWN);
+        }
     }
 }
