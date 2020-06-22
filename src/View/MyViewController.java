@@ -30,7 +30,6 @@ import java.nio.file.Paths;
 
 public class MyViewController implements IView, Observer {
     private int[] size = new int[3];
-    ;
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
     public ToggleButton solveBtn;
