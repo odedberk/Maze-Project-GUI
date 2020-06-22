@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -181,6 +182,7 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth/col;
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,canvasWidth,canvasHeight);
+//            graphicsContext.setEffect(new DropShadow(6, 2, 2, Color.BLACK));
             graphicsContext.setFill(Color.RED);
             double w,h;
             //Draw Maze
@@ -235,7 +237,6 @@ public class MazeDisplayer extends Canvas {
                 graphicsContext.fillOval(w_player,h_player,cellWidth,cellHeight);
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
-
             if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()){
                 double h_goal = (maze.getGoalPosition().getRowIndex()) *cellHeight;
                 double w_goal = (maze.getGoalPosition().getColumnIndex()) *  cellWidth;
@@ -249,8 +250,8 @@ public class MazeDisplayer extends Canvas {
                 if (highlightGoal)
                     graphicsContext.fillOval(w_goal,h_goal,cellWidth, cellHeight);
                 graphicsContext.drawImage(goalImage,w_goal,h_goal,cellWidth, cellHeight);
-
             }
+            graphicsContext.applyEffect(new DropShadow(10, 2, 2, Color.BLACK));
         }
 
     }
