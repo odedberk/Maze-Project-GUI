@@ -255,7 +255,6 @@ public class MyViewController implements IView, Observer {
     }
 
     public void dragPlayer(MouseEvent mouseEvent) {
-//        System.out.println("dragging..."); //DEBUG
         double playerX = mazeDisplayer.getPlayerX();
         double playerY = mazeDisplayer.getPlayerY();
         double playerHeight = mazeDisplayer.getPlayerHeight();

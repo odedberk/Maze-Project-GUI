@@ -56,9 +56,9 @@
       </AnchorPane>
    </left>
    <center>
-      <StackPane onMouseDragged="#dragPlayer" prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: url('images/background.png')" BorderPane.alignment="CENTER">
+      <StackPane  prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: url('images/background.png')" BorderPane.alignment="CENTER">
          <children>
-              <MazeDisplayer fx:id="mazeDisplayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat1.png" imageFileNameWall="resources/Images/wall.png" onKeyPressed="#keyPressed" width="691.0" />
+              <MazeDisplayer fx:id="mazeDisplayer" onMouseDragged="#dragPlayer" height="600.0" imageFileGoal="resources/Images/fish.PNG" imageFileNamePlayer="resources/Images/cat1.png" imageFileNameWall="resources/Images/wall.png" onKeyPressed="#keyPressed" width="691.0" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" right="19.0" top="10.0" />
