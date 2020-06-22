@@ -17,6 +17,7 @@ import java.net.UnknownHostException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class MyModel extends Observable implements IModel {
@@ -49,7 +50,7 @@ public class MyModel extends Observable implements IModel {
     public void generateGame(int row, int col) {
         final Maze[] temp = new Maze[1];
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() { //TODO - CHANGE PORT?
+            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
@@ -109,7 +110,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public String saveGame() {//ISearchable searchable
+    public void saveGame() {//ISearchable searchable
         Date date = new Date(); // current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         String now=formatter.format(date);
@@ -130,7 +131,6 @@ public class MyModel extends Observable implements IModel {
             e.printStackTrace();
             logger.info(e.getMessage());
         }
-        return null;
     }
 
     public void getSavedGames(){
@@ -146,16 +146,16 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(games);
     }
 
-    @Override
-    public Properties getProperties() {
-        return null;
-    }
-
-    @Override
-    public Properties getAbout() {
-        logger.info("get about"+System.currentTimeMillis());
-        return null;
-    }
+//    @Override
+//    public Properties getProperties() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Properties getAbout() {
+//        logger.info("Show about window "+System.currentTimeMillis());
+//        return null;
+//    }
 
     @Override
     public void moveCharacter(Direction direction) {
@@ -210,7 +210,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
         }
-        maze.setStart(new Position(charPosition[0],charPosition[1])); // update current player's position in maze (for showing relevant solution)
+        maze.setStart(new Position(charPosition[0],charPosition[1])); // Update current player's position in  the maze, for updating the solution in real time
         setChanged();
         notifyObservers(charPosition);
     }
@@ -221,16 +221,14 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveGame() {
-        logger.info("player ask for solution"+System.currentTimeMillis());
+        logger.info("Solving maze..."+ LocalDateTime.now());
         if (maze==null) {
             System.out.println("No maze to solve!");
-            setChanged();
-            notifyObservers(null);
             return;
         }
         final Solution[] mazeSolution = new Solution[1];
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() { //TODO - CHANGE PORT?
+            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
                         @Override
                         public void clientStrategy(InputStream inFromServer,
                                                    OutputStream outToServer) {
@@ -257,7 +255,7 @@ public class MyModel extends Observable implements IModel {
                         }
                     });
             client.communicateWithServer();
-            logger.info(client.toString());
+//            logger.info(client.toString());
         } catch (UnknownHostException e) {
             e.printStackTrace();
             logger.fatal(e.getMessage());

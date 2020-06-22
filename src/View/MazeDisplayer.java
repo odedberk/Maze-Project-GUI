@@ -80,9 +80,8 @@ public class MazeDisplayer extends Canvas {
         return imageFileNamePlayer.get();
     }
 
-    public void setImageFileNamePlayer(String imageFileNamePlayer) {
-        this.imageFileNamePlayer.set(imageFileNamePlayer);
-    }
+    public void setImageFileNamePlayer(String imageFileNamePlayer) { this.imageFileNamePlayer.set(imageFileNamePlayer); }
+
     public String getImageFileGoal() {
         return imageFileGoal.get();
     }

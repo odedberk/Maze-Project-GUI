@@ -40,6 +40,7 @@ public class MyViewController implements IView, Observer {
     public ToggleButton fishBtn;
     public ToggleButton catBtn;
     public MediaPlayer mediaPlayer;
+    public MediaPlayer meow;
 
 
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
@@ -82,20 +83,8 @@ public class MyViewController implements IView, Observer {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Made by: Oded Berkovich and Eilam Gal.");
         alert.show();
     }
-    public void playMusic() {
-        String s = "resources/sounds/background.mp3";
-        Media h = new Media(Paths.get(s).toUri().toString());
-        mediaPlayer = new MediaPlayer(h);
-        mediaPlayer.setVolume(0.6);
-        mediaPlayer.setCycleCount(5);
-        mediaPlayer.play();
-    }
 
-    public void mute(ActionEvent actionEvent) {
-        mediaPlayer.setMute(!mediaPlayer.isMute());
-    }
-
-
+    public void mute(ActionEvent actionEvent) { mediaPlayer.setMute(!mediaPlayer.isMute()); }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -103,7 +92,6 @@ public class MyViewController implements IView, Observer {
             if (arg instanceof Maze) {
                 resetMaze();
                 mazeDisplayer.drawMaze((Maze) arg);
-//                music();
                 mazeDisplayer.getScene().setOnScroll(event ->
                 {
                     if (event.isControlDown()) {
@@ -117,7 +105,6 @@ public class MyViewController implements IView, Observer {
                 System.out.println("solved!");
                 mazeDisplayer.setSolution((Solution) arg);
                 mazeDisplayer.draw();
-                //TODO - SHOW SOLUTION ON CANVAS
             }
             if (arg instanceof int[]) { //updated player position
                 mazeDisplayer.set_player_position((int[]) arg);
@@ -149,7 +136,6 @@ public class MyViewController implements IView, Observer {
 
 
     private void gameWon() {
-//        playMeow();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;
@@ -161,17 +147,26 @@ public class MyViewController implements IView, Observer {
         ImageView imageView = new ImageView(image);
         alert.setGraphic(imageView);
         alert.showAndWait();
-//        new Alert(Alert.AlertType.INFORMATION,"You Won!!").show();
         mazeDisplayer.setDisable(true);
         solveBtn.setDisable(true);
+    }
+
+    public void playMusic() {
+        String s = "resources/sounds/background.mp3";
+        Media h = new Media(Paths.get(s).toUri().toString());
+        mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.setVolume(0.7);
+        mediaPlayer.setCycleCount(5);
+        mediaPlayer.play();
     }
 
     private void playMeow() {
         String s = "resources/sounds/meow.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
-        MediaPlayer meow;
         meow = new MediaPlayer(h);
         meow.setCycleCount(1);
+        meow.setVolume(0.3);
+        meow.setMute(mediaPlayer.isMute());
         meow.play();
     }
 
@@ -211,7 +206,7 @@ public class MyViewController implements IView, Observer {
         settings.setMinHeight(350);
         settings.setResizable(false);
         settings.setOpacity(0.97);
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorView.fxml"));
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorController.fxml"));
         Parent root = null;
         try {
             root = fxml.load();
@@ -219,7 +214,7 @@ public class MyViewController implements IView, Observer {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Cannot open window!");
             e.printStackTrace();
         }
-        GeneratorView generator = fxml.getController();
+        Generator generator = fxml.getController();
         size[0]=0; //flag indicating new game is wanted
         generator.setSize(size);
         settings.setTitle("Set maze size");
