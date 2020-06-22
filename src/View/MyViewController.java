@@ -63,7 +63,7 @@ public class MyViewController implements IView, Observer {
         LoadController loadController = fxml.getController();
         String[] game = new String[1];
         loadController.setChooseGame(game);
-        settings.setTitle("Load Games");
+        settings.setTitle("Load a game");
         settings.setScene(new Scene(root));
         settings.initModality(Modality.APPLICATION_MODAL);
         settings.showAndWait();
