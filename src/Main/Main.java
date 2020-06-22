@@ -24,7 +24,7 @@ public class Main extends Application {
         Server mazeSolvingServer = new Server(5401, 10000, new ServerStrategySolveSearchProblem());
         MyModel myModel= new MyModel(mazeGeneratingServer,mazeSolvingServer);
         primaryStage.setOnCloseRequest(event ->  myModel.closeProgram());
-        primaryStage.setMinHeight(450);
+        primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(950);
         primaryStage.setResizable(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));

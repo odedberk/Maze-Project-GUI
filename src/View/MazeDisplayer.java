@@ -174,7 +174,7 @@ public class MazeDisplayer extends Canvas {
         {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
-            System.out.println(canvasHeight+","+canvasWidth);
+//            System.out.println(canvasHeight+","+canvasWidth);
             int row = maze.getMaze().length;
             int col = maze.getMaze()[0].length;
             double cellHeight = canvasHeight/row;
@@ -239,7 +239,7 @@ public class MazeDisplayer extends Canvas {
             if(playerPosition[0] != maze.getGoalPosition().getRowIndex() || playerPosition[1] != maze.getGoalPosition().getColumnIndex()){
                 double h_goal = (maze.getGoalPosition().getRowIndex()) *cellHeight;
                 double w_goal = (maze.getGoalPosition().getColumnIndex()) *  cellWidth;
-                System.out.println(maze.getGoalPosition());
+//                System.out.println(maze.getGoalPosition());
                 Image goalImage = null;
                 try {
                     goalImage=new Image(new FileInputStream(getImageFileGoal()));
