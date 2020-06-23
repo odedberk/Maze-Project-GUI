@@ -42,8 +42,8 @@ public class MyModel extends Observable implements IModel {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String now=formatter.format(date);
-        logger.info("\n--------"+now+"--------\n");
-        logger.info("Starting servers..");
+        logger.info("-----New log "+now+"-----");
+        logger.info(LocalDateTime.now()+" - Starting servers..");
     }
 
     @Override
@@ -84,14 +84,14 @@ public class MyModel extends Observable implements IModel {
         charPosition[1]=maze.getStartPosition().getColumnIndex();
         setChanged();
         notifyObservers(maze);
-        logger.info("new game. maze size "+row +"x"+col);
+        logger.info(LocalDateTime.now()+" - New game. Maze size : "+row +"x"+col);
 
     }
 
 
     @Override
     public void loadGame(String fileName) {
-        logger.info("Trying To load maze: "+fileName);
+        logger.info(LocalDateTime.now()+" - Trying To load maze: "+fileName);
         try {
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
             FileInputStream fileInputStream = new FileInputStream(path+"\\resources\\SavedGames\\"+fileName);
@@ -101,10 +101,10 @@ public class MyModel extends Observable implements IModel {
             charPosition[1]=maze.getStartPosition().getColumnIndex();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
-            logger.error("Couldn't load maze file");
+            logger.error(LocalDateTime.now()+" - Couldn't load maze file");
             e.printStackTrace();
         }
-        logger.info("Maze loaded successfully");
+        logger.info(LocalDateTime.now()+" - Maze loaded successfully");
         setChanged();
         notifyObservers(maze);
     }
@@ -115,7 +115,7 @@ public class MyModel extends Observable implements IModel {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         String now=formatter.format(date);
         String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
-        logger.info("trying to save "+game);
+        logger.info(LocalDateTime.now()+" - Trying to save "+game);
         try {//write the solution to file
             Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
             FileOutputStream outputStream = new FileOutputStream(path+"\\resources\\SavedGames\\"+game);
@@ -123,18 +123,18 @@ public class MyModel extends Observable implements IModel {
             objectOutput.writeObject(maze);
             objectOutput.flush();
             objectOutput.close();
-            logger.info("game "+game + " was saved");
+            logger.info(LocalDateTime.now()+" - Game "+game + " was saved!");
             Alert saved = new Alert(Alert.AlertType.INFORMATION, "Saved file name:\n"+game);
             saved.setHeaderText("Maze and player position saved");
             saved.show();
         } catch (IOException e) {
             e.printStackTrace();
-            logger.info(e.getMessage());
+            logger.info(LocalDateTime.now()+" - "+ e.getMessage());
         }
     }
 
     public void getSavedGames(){
-        logger.info("Trying to load games list");
+        logger.info(LocalDateTime.now()+" - Trying to load games list");
         LinkedList<String> games = new LinkedList<>();
         Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
         File savedGames = new File(path+"\\resources\\SavedGames");
@@ -223,7 +223,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
         }
-        maze.setStart(new Position(charPosition[0],charPosition[1])); // Update current player's position in  the maze, for updating the solution in real time
+        maze.setStart(new Position(charPosition[0],charPosition[1])); // Update current player's position in the maze, for updating the solution in real time
         if (moved) {
             setChanged();
             notifyObservers(charPosition);
@@ -236,7 +236,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveGame() {
-        logger.info("Solving maze..."+ LocalDateTime.now());
+//        logger.info("Solving maze..."+ LocalDateTime.now());
         if (maze==null) {
             System.out.println("No maze to solve!");
             return;
@@ -288,7 +288,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void closeProgram() {
-        logger.info("Shutting down servers and closing the program!");
+        logger.info(LocalDateTime.now()+" - Shutting down servers and closing the program!\n");
         generatorServer.stop();
         solverServer.stop();
         System.exit(0);
