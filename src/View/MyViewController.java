@@ -107,6 +107,8 @@ public class MyViewController implements IView, Observer {
             }
             if (arg instanceof int[]) { //updated player position
                 mazeDisplayer.set_player_position((int[]) arg);
+                if (mazeDisplayer.showSolution)
+                    viewModel.solveMaze();
                 if (isGoalPosition((int[])arg)) {
                     playMeow();
                     gameWon();
@@ -135,6 +137,12 @@ public class MyViewController implements IView, Observer {
 
 
     private void gameWon() {
+        mazeDisplayer.setDisable(true);
+        solveBtn.setDisable(true);
+        catBtn.setDisable(true);
+        fishBtn.setDisable(true);
+        saveBtn.setDisable(true);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;
@@ -146,8 +154,6 @@ public class MyViewController implements IView, Observer {
         ImageView imageView = new ImageView(image);
         alert.setGraphic(imageView);
         alert.showAndWait();
-        mazeDisplayer.setDisable(true);
-        solveBtn.setDisable(true);
     }
 
     public void playMusic() {
@@ -188,14 +194,14 @@ public class MyViewController implements IView, Observer {
         }
         else
             viewModel.solveMaze();
+
+
     }
 
     public void keyPressed(KeyEvent keyEvent) {
         if (mazeDisplayer.gotMaze()){
             viewModel.moveCharacter(keyEvent);
             keyEvent.consume();
-            if (mazeDisplayer.showSolution)
-                viewModel.solveMaze();
         }
     }
 
@@ -262,8 +268,6 @@ public class MyViewController implements IView, Observer {
         if (mazeDisplayer.gotMaze()){
             viewModel.moveCharacter(mouseEvent,playerX, playerY, playerWidth, playerHeight);
             mouseEvent.consume();
-            if (mazeDisplayer.showSolution)
-                viewModel.solveMaze();
         }
     }
 }

@@ -159,32 +159,42 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void moveCharacter(Direction direction) {
+        boolean moved = false;
         switch(direction)
         {
             case UP:
-                if(charPosition[0]!=0 && !isWall(charPosition[0]-1,charPosition[1]))
+                if(charPosition[0]!=0 && !isWall(charPosition[0]-1,charPosition[1])) {
                     charPosition[0]--;
+                    moved = true;
+                }
                 break;
 
             case DOWN:
-              if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1]))
+              if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1])){
                   charPosition[0]++;
+                  moved = true;
+              }
                 break;
 
             case LEFT:
-              if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1))
+              if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1)){
                   charPosition[1]--;
+                  moved = true;
+              }
                 break;
 
             case RIGHT:
-              if(charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0],charPosition[1]+1))
+              if(charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0],charPosition[1]+1)){
                   charPosition[1]++;
+                  moved = true;
+              }
                 break;
 
             case UP_RIGHT:
                 if(charPosition[0]!=0 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]-1,charPosition[1]+1)) {
                     charPosition[0]--;
                     charPosition[1]++;
+                    moved = true;
                 }
                 break;
 
@@ -192,6 +202,7 @@ public class MyModel extends Observable implements IModel {
                 if(charPosition[0]!=0 && charPosition[1]!=0 && !isWall( charPosition[0]-1,charPosition[1]-1)) {
                     charPosition[0]--;
                     charPosition[1]--;
+                    moved = true;
                 }
                 break;
 
@@ -199,6 +210,7 @@ public class MyModel extends Observable implements IModel {
                 if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=0 && !isWall( charPosition[0]+1,charPosition[1]-1)) {
                     charPosition[0]++;
                     charPosition[1]--;
+                    moved = true;
                 }
                 break;
 
@@ -206,13 +218,16 @@ public class MyModel extends Observable implements IModel {
                 if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]+1,charPosition[1]+1)) {
                     charPosition[0]++;
                     charPosition[1]++;
+                    moved = true;
                 }
                 break;
 
         }
         maze.setStart(new Position(charPosition[0],charPosition[1])); // Update current player's position in  the maze, for updating the solution in real time
-        setChanged();
-        notifyObservers(charPosition);
+        if (moved) {
+            setChanged();
+            notifyObservers(charPosition);
+        }
     }
 
     private boolean isWall(int row, int col) {
