@@ -53,7 +53,6 @@ public class MyViewController implements IView, Observer {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("Load.fxml"));
         Parent root = null;
         getLoadGames();
-        //LoadController.setList(temp);
         try {
             root = fxml.load();
         } catch (IOException e) {
@@ -83,7 +82,7 @@ public class MyViewController implements IView, Observer {
         alert.show();
     }
 
-    public void mute(ActionEvent actionEvent) { mediaPlayer.setMute(!mediaPlayer.isMute()); }
+    public void mute(ActionEvent actionEvent) { mediaPlayer.setMute(!mediaPlayer.isMute());mazeDisplayer.requestFocus(); }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -98,6 +97,7 @@ public class MyViewController implements IView, Observer {
                         mazeDisplayer.getScene().getWindow().setWidth(mazeDisplayer.getScene().getWindow().getWidth() * (event.getDeltaY() > 0 ? 1.08 : 0.94));
                     }
                 });
+                mazeDisplayer.requestFocus();
             }
 
             if (arg instanceof Solution) {
@@ -194,7 +194,7 @@ public class MyViewController implements IView, Observer {
         }
         else
             viewModel.solveMaze();
-
+        mazeDisplayer.requestFocus();
 
     }
 
@@ -253,11 +253,13 @@ public class MyViewController implements IView, Observer {
     public void showFish(ActionEvent actionEvent) {
         mazeDisplayer.highlightGoal = !mazeDisplayer.highlightGoal;
         mazeDisplayer.draw();
+        mazeDisplayer.requestFocus();
     }
 
     public void showCat(ActionEvent actionEvent) {
         mazeDisplayer.highlightChararcter = !mazeDisplayer.highlightChararcter;
         mazeDisplayer.draw();
+        mazeDisplayer.requestFocus();
     }
 
     public void dragPlayer(MouseEvent mouseEvent) {

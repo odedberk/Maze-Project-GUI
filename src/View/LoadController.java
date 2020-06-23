@@ -26,17 +26,8 @@ public class LoadController  implements Initializable {
 
     public static LinkedList<String> games =new LinkedList<>();
 
-    public LoadController() {
-        ChooseGame=null;
-    }
-
-    public LoadController(String[] s) {
-        ChooseGame=s;
-    }
-
-
     private void addGame(){
-        list.removeAll(list);
+        list.removeAll();
         list.addAll(games);
         loadList.getItems().addAll(list);
     }
