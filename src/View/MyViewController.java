@@ -118,11 +118,12 @@ public class MyViewController implements IView, Observer {
                     gameWon();
                 }
             }
-            if(arg instanceof List){
-                LoadController.setList((LinkedList<String>)arg);
+            if(arg instanceof List){//gets list of saved games
+                LoadController.setList((LinkedList<String>)arg);//update games list in LoadController
             }
         }
     }
+
 
     private void resetMaze() {
         mazeDisplayer.showSolution=false;
@@ -139,7 +140,10 @@ public class MyViewController implements IView, Observer {
         fishBtn.setDisable(false);
     }
 
-
+    /**
+     * inform the user that he won the game.
+     *
+     */
     private void gameWon() {
         mazeDisplayer.setDisable(true);
         solveBtn.setDisable(true);
@@ -147,11 +151,11 @@ public class MyViewController implements IView, Observer {
         fishBtn.setDisable(true);
         saveBtn.setDisable(true);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);//alert to inform the win
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;
         try {
-            image = new Image(new FileInputStream("resources/Images/happy.png"));
+            image = new Image(new FileInputStream("resources/Images/happy.png"));//image in alert
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -160,6 +164,9 @@ public class MyViewController implements IView, Observer {
         alert.showAndWait();
     }
 
+    /**
+    play music in the background
+     */
     public void playMusic() {
         String s = "resources/sounds/background.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
@@ -169,6 +176,9 @@ public class MyViewController implements IView, Observer {
         mediaPlayer.play();
     }
 
+    /**
+     * play wining music
+     */
     private void playMeow() {
         String s = "resources/sounds/meow.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
@@ -191,17 +201,24 @@ public class MyViewController implements IView, Observer {
         viewModel.generateMaze(size[1],size[2]);
     }
 
+    /**
+     * when the user ask for solution or to hide an open solution
+     */
     public void solveMaze(){
         if (mazeDisplayer.showSolution) {
             mazeDisplayer.showSolution = false;
             mazeDisplayer.draw();
         }
         else
-            viewModel.solveMaze();
+            viewModel.solveMaze();//ask for solution
         mazeDisplayer.requestFocus();
 
     }
 
+    /**
+     * handle movement request from the user
+     * @param keyEvent
+     */
     public void keyPressed(KeyEvent keyEvent) {
         if (mazeDisplayer.gotMaze()){
             viewModel.moveCharacter(keyEvent);
@@ -209,6 +226,10 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    /**
+     * open settings window and after generate a new game with the settings values
+     * @param actionEvent
+     */
     public void getSettings(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
@@ -233,10 +254,14 @@ public class MyViewController implements IView, Observer {
         settings.showAndWait();
         //GENERATE MAZE WITH INPUT VALUES
         System.out.println(size[1]+ ", " + size[2]);
-        if (size[0]==1)
+        if (size[0]==1)//if generate button was kicked
             generateMaze();
     }
 
+    /**
+     * open alert with the Properties from Configurations
+     * @param actionEvent
+     */
     public void showProperties(ActionEvent actionEvent) {
         StringBuilder show = new StringBuilder("");
         Set<String> properties = Configurations.getAllProperties();
