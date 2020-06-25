@@ -37,7 +37,6 @@ public class Main extends Application {
         primaryStage.setTitle("Grumpy Maze");
         primaryStage.setScene(new Scene(root, 350, 500));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {

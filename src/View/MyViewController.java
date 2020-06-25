@@ -1,6 +1,7 @@
 package View;
 
 
+import Model.Configurations;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
@@ -126,7 +127,7 @@ public class MyViewController implements IView, Observer {
 
     private void resetMaze() {
         mazeDisplayer.showSolution=false;
-        mazeDisplayer.highlightChararcter=false;
+        mazeDisplayer.highlightCharacter =false;
         mazeDisplayer.highlightGoal=false;
         solveBtn.setSelected(false);
         catBtn.setSelected(false);
@@ -215,7 +216,7 @@ public class MyViewController implements IView, Observer {
         settings.setMinHeight(350);
         settings.setResizable(false);
         settings.setOpacity(0.97);
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("GeneratorController.fxml"));
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("Generator.fxml"));
         Parent root = null;
         try {
             root = fxml.load();
@@ -223,7 +224,7 @@ public class MyViewController implements IView, Observer {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Cannot open window!");
             e.printStackTrace();
         }
-        Generator generator = fxml.getController();
+        GeneratorController generator = fxml.getController();
         size[0]=0; //flag indicating new game is wanted
         generator.setSize(size);
         settings.setTitle("Set maze size");
@@ -244,7 +245,6 @@ public class MyViewController implements IView, Observer {
             show.append(key+" : "+Configurations.getProperty(key)+"\n");
         }
         Alert alert= new Alert(Alert.AlertType.INFORMATION, show.toString());
-//        alert.setTitle("Configurations:");
         alert.setHeaderText("Configurations:");
         alert.show();
     }
@@ -261,7 +261,7 @@ public class MyViewController implements IView, Observer {
     }
 
     public void showCat(ActionEvent actionEvent) {
-        mazeDisplayer.highlightChararcter = !mazeDisplayer.highlightChararcter;
+        mazeDisplayer.highlightCharacter = !mazeDisplayer.highlightCharacter;
         mazeDisplayer.draw();
         mazeDisplayer.requestFocus();
     }

@@ -14,13 +14,18 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.text.NumberFormat;
 
-public class Generator {
+/**
+ * A controller for the "Set maze size" window. Lets the user choose the desired maze size
+ * and then passes the arguments back to the previous window
+ */
+public class GeneratorController {
     public Slider rowSlider;
     public Slider colSlider;
     public TextField rowsField;
     public TextField colsField;
-    public int[] size;
+    public int[] size; //object injected from the calling window to pass the information
 
+    // -- Bind sliders with text fields
     public void initialize() {
         if (size!=null) {
             rowSlider.setValue(size[1]);
@@ -44,17 +49,21 @@ public class Generator {
     }
 
     public void sendValues(ActionEvent actionEvent) {
-        size[0] = 1;
+        size[0] = 1; // 0 = Maze not changed (window was closed), 1 = Player asked for a new maze
         size[1] = Integer.parseInt(!rowsField.getText().isEmpty()? rowsField.getText() : "2");
         size[2] = Integer.parseInt(!colsField.getText().isEmpty()? colsField.getText() : "2");
+
+        // --- Minimum allowed size ---
         if (size[1]<=1 || size[2]<=1) {
             new Alert(Alert.AlertType.WARNING, "Rows and columns has to be at least 2!").show();
             colsField.setText("10");
             rowsField.setText("10");
             return;
         }
-        if (size[1]>500 || size[2]>500) {
-            new Alert(Alert.AlertType.WARNING, "Rows and columns can not exceed 500!").show();
+
+        // --- Maximum allowed size ---
+        if (size[1]>100 || size[2]>100) {
+            new Alert(Alert.AlertType.WARNING, "Rows and columns can not exceed 100!").show();
             colsField.setText("10");
             rowsField.setText("10");
             return;
@@ -63,6 +72,7 @@ public class Generator {
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 
+    //Dependency injection
     public void setSize(int[] size){
         this.size=size;
     }

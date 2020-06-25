@@ -6,7 +6,6 @@ import Server.Server;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
-import algorithms.search.ISearchable;
 import algorithms.search.Solution;
 import javafx.scene.control.Alert;
 import org.apache.log4j.*;
@@ -158,19 +157,9 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(games);
     }
 
-//    @Override
-//    public Properties getProperties() {
-//        return null;
-//    }
-//
-//    @Override
-//    public Properties getAbout() {
-//        logger.info("Show about window "+System.currentTimeMillis());
-//        return null;
-//    }
 
     /**
-     * handlle a movemant
+     * Handle a movement
      * @param direction
      */
     @Override
@@ -247,8 +236,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     /**
-     * return true if position in [row][col] is not a wall
-     *
+     * return true if position in [row][col] is a wall
      * @return
      */
     private boolean isWall(int row, int col) {
@@ -260,7 +248,6 @@ public class MyModel extends Observable implements IModel {
      */
     @Override
     public void solveGame() {
-//        logger.info("Solving maze..."+ LocalDateTime.now());
         if (maze==null) {
             System.out.println("No maze to solve!");
             return;
