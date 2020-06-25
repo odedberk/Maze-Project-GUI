@@ -150,6 +150,8 @@ public class MyModel extends Observable implements IModel {
         Path path = FileSystems.getDefault().getPath("").toAbsolutePath();//gets the project path
         File savedGames = new File(path+"\\resources\\SavedGames");
         String contents[] = savedGames.list();
+        if (contents==null)
+            return;
         for (String s : contents) {
             games.add(s);
         }
