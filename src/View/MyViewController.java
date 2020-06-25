@@ -30,7 +30,6 @@ import java.util.*;
 import java.nio.file.Paths;
 
 public class MyViewController implements IView, Observer {
-    private int[] size = new int[3];
     public MazeDisplayer mazeDisplayer;
     public MyViewModel viewModel;
     public ToggleButton solveBtn;
@@ -204,8 +203,8 @@ public class MyViewController implements IView, Observer {
         viewModel.closeProgram();
     }
 
-    public void generateMaze(){
-        viewModel.generateMaze(size[1],size[2]);
+    public void generateMaze(int row, int col){
+        viewModel.generateMaze(row, col);
     }
 
     /**
@@ -252,7 +251,7 @@ public class MyViewController implements IView, Observer {
             e.printStackTrace();
         }
         GeneratorController generator = fxml.getController();
-        size[0]=0; //flag indicating new game is wanted
+        int[] size = new int[3];
         generator.setSize(size);
         settings.setTitle("Set maze size");
         settings.setScene(new Scene(root));
@@ -262,7 +261,7 @@ public class MyViewController implements IView, Observer {
         //GENERATE MAZE WITH INPUT VALUES
         System.out.println(size[1]+ ", " + size[2]);
         if (size[0]==1)//if generate button was kicked
-            generateMaze();
+            generateMaze(size[1],size[2]);
     }
 
     /**
