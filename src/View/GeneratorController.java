@@ -25,7 +25,7 @@ public class GeneratorController {
     public TextField colsField;
     public int[] size; //object injected from the calling window to pass the information
 
-    // -- Bind sliders with text fields
+    // --- Bind sliders with text fields ---
     public void initialize() {
         if (size!=null) {
             rowSlider.setValue(size[1]);
@@ -48,6 +48,7 @@ public class GeneratorController {
 
     }
 
+    //Validate and update the injected object with input values and close the window
     public void sendValues(ActionEvent actionEvent) {
         size[0] = 1; // 0 = Maze not changed (window was closed), 1 = Player asked for a new maze
         size[1] = Integer.parseInt(!rowsField.getText().isEmpty()? rowsField.getText() : "2");

@@ -315,25 +315,26 @@ public class MyViewController implements IView, Observer {
     }
 
     public void help(ActionEvent actionEvent) {
-        Alert help = new Alert(Alert.AlertType.INFORMATION,"Hlep\n" +
-                "The Game: the goal of the game is to bring the cat to the fish.\n" +
+        Alert help = new Alert(Alert.AlertType.INFORMATION,"Help\n" +
+                "The Game:\n" +
+                "The goal of the game is to bring the cat to the fish. Surprisingly.\n" +
                 "\n"+
-                "Playing \n" +
-                "Left: press left-key or 4\n" +
-                "Right: press right-key or 6\n" +
-                "Up:press up-key or \n" +
-                "Down:\n" +
-                "Up Left: press 7\n" +
-                "Up Right: press 9\n" +
-                "Down Left: press 1\n" +
-                "Down Right: press 3\t\n" +
-                "for any of this moves you can click on the position you want to move to and the player will move automatically.\n" +
+                "How to play: \n" +
+                "Left:          press left-key or 4\n" +
+                "Right:         press right-key or 6\n" +
+                "Up:            press up-key or 8\n" +
+                "Down:          press down-key or 2\n" +
+                "Up Left:       press 7\n" +
+                "Up Right:      press 9\n" +
+                "Down Left:     press 1\n" +
+                "Down Right:    press 3\n" +
+                "Or you can simply drag the character with your mouse (click-and-drag)\n" +
                 "\n"+
-                "Anther Info"+
-                "if you want to get a solution press the 'Show Solution' button (and if you when to hide it, press 'Show Solution' button again).\n"+
-                "to highlight the goal press the 'Where's the cat??' button.\n" +
-                "to highlight the goal press the 'Where's my FISH??' button.\n" +
-                "to stop the beckruond music press 'Mute' button (and if you when to hear again, press 'Show Solution' button again).");
+                "Some more Info:\n"+
+                "If you (are weak and) need a solution, press 'Show Solution'.\n"+
+                "To highlight the character - press 'Where's the cat??' button.\n" +
+                "To highlight the goal      - press 'Where's my FISH??' button.\n" +
+                "To mute/unmute all background noises press 'Mute'.");
         help.show();
     }
 }
