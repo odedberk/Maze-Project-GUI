@@ -33,14 +33,14 @@ public class MyViewModel extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof IModel) {
-            if (arg instanceof Maze) {
+        if (o instanceof IModel) {//gets notify from the IModel
+            if (arg instanceof Maze) {//if is new maze
                 setChanged();
                 notifyObservers(arg);
-            } else if (arg instanceof Solution) {
+            } else if (arg instanceof Solution) {//gets new solution for the maze
                 setChanged();
                 notifyObservers(arg);
-            } else if (arg instanceof List) {
+            } else if (arg instanceof List) {//gets list of saved games
                 setChanged();
                 notifyObservers(arg);
             }
@@ -69,6 +69,10 @@ public class MyViewModel extends Observable implements Observer {
         this.model.saveGame();
     }
 
+    /**
+     * gets KeyEvent from View and checks if is a movement and sent to the
+     * @param keyEvent
+     */
     public void moveCharacter(KeyEvent keyEvent) {
         MyModel.Direction direction = MyModel.Direction.NONE;
         switch (keyEvent.getCode()) {
@@ -113,6 +117,14 @@ public class MyViewModel extends Observable implements Observer {
         model.moveCharacter(direction);
     }
 
+    /**
+     *
+     * @param mouseEvent
+     * @param playerX
+     * @param playerY
+     * @param playerWidth
+     * @param playerHeight
+     */
     public void moveCharacter(MouseEvent mouseEvent, double playerX, double playerY, double playerWidth, double playerHeight) {
         if (mouseEvent.getX()>playerX+playerWidth)
         {

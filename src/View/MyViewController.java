@@ -44,6 +44,10 @@ public class MyViewController implements IView, Observer {
 
     public void setViewModel(MyViewModel viewModel) { this.viewModel = viewModel; }
 
+    /**
+     * gets actionEvent and build new Load scene
+     * @param actionEvent
+     */
     public void loadGame(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
@@ -52,11 +56,11 @@ public class MyViewController implements IView, Observer {
         settings.setOpacity(0.97);
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("Load.fxml"));
         Parent root = null;
-        getLoadGames();
+        getLoadGames();//update games list in LoadController
         try {
             root = fxml.load();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot open window!");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot open window!");//if cannot open the load window
             e.printStackTrace();
         }
         LoadController loadController = fxml.getController();
@@ -66,10 +70,10 @@ public class MyViewController implements IView, Observer {
         settings.setScene(new Scene(root));
         settings.initModality(Modality.APPLICATION_MODAL);
         settings.showAndWait();
-        if(game[0]!=null)
+        if(game[0]!=null)//if saved game choose
             this.viewModel.LoadGame(game[0]);
     }
-    private void getLoadGames(){
+    private void getLoadGames(){//ask for all the saved games
         viewModel.getSavedGames();
     }
 
@@ -86,7 +90,7 @@ public class MyViewController implements IView, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof MyViewModel) {
+        if (o instanceof MyViewModel) {//if the notify is from the MyModelView
             if (arg instanceof Maze) {
                 resetMaze();
                 mazeDisplayer.drawMaze((Maze) arg);
