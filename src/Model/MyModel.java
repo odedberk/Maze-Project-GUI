@@ -23,8 +23,8 @@ import java.util.*;
 public class MyModel extends Observable implements IModel {
     private Server generatorServer;
     private Server solverServer;
-    private int[] charPosition;
-    private Maze maze;
+    private int[] charPosition;//current position of the player
+    private Maze maze;//current maze
     private static Logger logger = Logger.getLogger(String.valueOf(MyModel.class));
 
     public MyModel (Server generator, Server solver){
@@ -42,15 +42,18 @@ public class MyModel extends Observable implements IModel {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String now=formatter.format(date);
-        logger.info("-----New log "+now+"-----");
+        logger.info("-----New log "+now+"-----");//write the time in log file
         logger.info(LocalDateTime.now()+" - Starting servers..");
     }
 
+    /**
+        gets an sizes from the user the maze and generate new maze
+     */
     @Override
     public void generateGame(int row, int col) {
         final Maze[] temp = new Maze[1];
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
+            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {// new client stratgey
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
@@ -59,7 +62,7 @@ public class MyModel extends Observable implements IModel {
                         int[] mazeDimensions = new int[]{row, col};
                         toServer.writeObject(mazeDimensions);
                         toServer.flush();
-                        byte[] compressedMaze = (byte[])fromServer.readObject();
+                        byte[] compressedMaze = (byte[])fromServer.readObject();//gets compressed maze from the server
                         System.out.println(compressedMaze.length);
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
                         byte[] decompressedMaze = new byte[300000]; //max 500X500
@@ -78,7 +81,6 @@ public class MyModel extends Observable implements IModel {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
         maze=temp[0];
         charPosition[0]=maze.getStartPosition().getRowIndex();
         charPosition[1]=maze.getStartPosition().getColumnIndex();
@@ -88,16 +90,19 @@ public class MyModel extends Observable implements IModel {
 
     }
 
-
+    /**
+     * gets the name of the save and restart a saved game
+     * @param fileName
+     */
     @Override
     public void loadGame(String fileName) {
         logger.info(LocalDateTime.now()+" - Trying To load maze: "+fileName);
         try {
-            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();//gets the project full path
             FileInputStream fileInputStream = new FileInputStream(path+"\\resources\\SavedGames\\"+fileName);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);//read the saved maze
             this.maze=(Maze)objectInputStream.readObject();
-            charPosition[0]=maze.getStartPosition().getRowIndex();
+            charPosition[0]=maze.getStartPosition().getRowIndex();//update the location
             charPosition[1]=maze.getStartPosition().getColumnIndex();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
@@ -109,16 +114,20 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(maze);
     }
 
+    /**
+     * save the current game in a file
+     *
+     */
     @Override
     public void saveGame() {//ISearchable searchable
         Date date = new Date(); // current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         String now=formatter.format(date);
-        String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;
+        String game = "Maze "+maze.getMaze().length+"X"+maze.getMaze()[0].length+" "+now;//the save name
         logger.info(LocalDateTime.now()+" - Trying to save "+game);
         try {//write the solution to file
-            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
-            FileOutputStream outputStream = new FileOutputStream(path+"\\resources\\SavedGames\\"+game);
+            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();//gets the project path
+            FileOutputStream outputStream = new FileOutputStream(path+"\\resources\\SavedGames\\"+game);//create new file with the current maze
             ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
             objectOutput.writeObject(maze);
             objectOutput.flush();
@@ -133,10 +142,13 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
+    /**
+     * return all the saved games in a List
+     */
     public void getSavedGames(){
         logger.info(LocalDateTime.now()+" - Trying to load games list");
         LinkedList<String> games = new LinkedList<>();
-        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();//gets the project path
         File savedGames = new File(path+"\\resources\\SavedGames");
         String contents[] = savedGames.list();
         for (String s : contents) {
@@ -157,41 +169,45 @@ public class MyModel extends Observable implements IModel {
 //        return null;
 //    }
 
+    /**
+     * handlle a movemant
+     * @param direction
+     */
     @Override
     public void moveCharacter(Direction direction) {
-        boolean moved = false;
+        boolean moved = false;//check if was a movmanet or not
         switch(direction)
         {
             case UP:
-                if(charPosition[0]!=0 && !isWall(charPosition[0]-1,charPosition[1])) {
+                if(charPosition[0]!=0 && !isWall(charPosition[0]-1,charPosition[1])) {//check if he can go up
                     charPosition[0]--;
                     moved = true;
                 }
                 break;
 
             case DOWN:
-              if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1])){
+              if(charPosition[0]!=maze.getMaze().length-1 && !isWall(charPosition[0]+1,charPosition[1])){//check if he can go down
                   charPosition[0]++;
                   moved = true;
               }
                 break;
 
             case LEFT:
-              if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1)){
+              if(charPosition[1]!=0 && !isWall(charPosition[0],charPosition[1]-1)){//check if can go left
                   charPosition[1]--;
                   moved = true;
               }
                 break;
 
             case RIGHT:
-              if(charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0],charPosition[1]+1)){
+              if(charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0],charPosition[1]+1)){//check if can go right
                   charPosition[1]++;
                   moved = true;
               }
                 break;
 
             case UP_RIGHT:
-                if(charPosition[0]!=0 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]-1,charPosition[1]+1)) {
+                if(charPosition[0]!=0 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]-1,charPosition[1]+1)) {//check if can go up and then right
                     charPosition[0]--;
                     charPosition[1]++;
                     moved = true;
@@ -199,7 +215,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case UP_LEFT:
-                if(charPosition[0]!=0 && charPosition[1]!=0 && !isWall( charPosition[0]-1,charPosition[1]-1)) {
+                if(charPosition[0]!=0 && charPosition[1]!=0 && !isWall( charPosition[0]-1,charPosition[1]-1)) {//check if can go up and then left
                     charPosition[0]--;
                     charPosition[1]--;
                     moved = true;
@@ -207,7 +223,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case DOWN_LEFT:
-                if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=0 && !isWall( charPosition[0]+1,charPosition[1]-1)) {
+                if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=0 && !isWall( charPosition[0]+1,charPosition[1]-1)) {//check if can go down and then left
                     charPosition[0]++;
                     charPosition[1]--;
                     moved = true;
@@ -215,7 +231,7 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case DOWN_RIGHT:
-                if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]+1,charPosition[1]+1)) {
+                if(charPosition[0]!=maze.getMaze().length-1 && charPosition[1]!=maze.getMaze()[0].length-1 && !isWall( charPosition[0]+1,charPosition[1]+1)) {//check if can go down and then right
                     charPosition[0]++;
                     charPosition[1]++;
                     moved = true;
@@ -224,16 +240,24 @@ public class MyModel extends Observable implements IModel {
 
         }
         maze.setStart(new Position(charPosition[0],charPosition[1])); // Update current player's position in the maze, for updating the solution in real time
-        if (moved) {
+        if (moved) {//if moved is true so we actually moved the player position
             setChanged();
             notifyObservers(charPosition);
         }
     }
 
+    /**
+     * return true if position in [row][col] is not a wall
+     *
+     * @return
+     */
     private boolean isWall(int row, int col) {
         return maze.getMaze()[row][col]==1;
     }
 
+    /**
+     * solve a game the
+     */
     @Override
     public void solveGame() {
 //        logger.info("Solving maze..."+ LocalDateTime.now());
@@ -243,7 +267,7 @@ public class MyModel extends Observable implements IModel {
         }
         final Solution[] mazeSolution = new Solution[1];
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {//new client strategy that get a solution for a maze
                         @Override
                         public void clientStrategy(InputStream inFromServer,
                                                    OutputStream outToServer) {
@@ -286,6 +310,9 @@ public class MyModel extends Observable implements IModel {
         addObserver(o);
     }
 
+    /**
+     * close the program stop all the servers
+     */
     @Override
     public void closeProgram() {
         logger.info(LocalDateTime.now()+" - Shutting down servers and closing the program!\n");

@@ -94,7 +94,7 @@ public class MyViewModel extends Observable implements Observer {
                 break;
             case NUMPAD7:
             case DIGIT7:
-                direction = IModel.Direction.UP_LEFT;
+                direction = IModel.Direction.UP_LEFT;//
                 break;
             case NUMPAD9:
             case DIGIT9:
