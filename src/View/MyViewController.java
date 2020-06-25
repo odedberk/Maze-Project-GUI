@@ -74,6 +74,10 @@ public class MyViewController implements IView, Observer {
         if(game[0]!=null)//if saved game choose
             this.viewModel.LoadGame(game[0]);
     }
+
+    /**
+     * get saved games list from resources folder
+     */
     private void getLoadGames(){//ask for all the saved games
         viewModel.getSavedGames();
     }
@@ -105,7 +109,7 @@ public class MyViewController implements IView, Observer {
                 mazeDisplayer.requestFocus();
             }
 
-            if (arg instanceof Solution) {
+            if (arg instanceof Solution) { //received a new maze solution
                 System.out.println("solved!");
                 mazeDisplayer.setSolution((Solution) arg);
                 mazeDisplayer.draw();
@@ -125,7 +129,9 @@ public class MyViewController implements IView, Observer {
         }
     }
 
-
+    /**
+     * sets all buttons and settings back to default
+     */
     private void resetMaze() {
         mazeDisplayer.showSolution=false;
         mazeDisplayer.highlightCharacter =false;
@@ -153,7 +159,7 @@ public class MyViewController implements IView, Observer {
         saveBtn.setDisable(true);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);//alert to inform the win
-        alert.setHeaderText("YOU WON!!\nnow feed me.");
+        alert.setHeaderText("You won...");
         Image image = null;
         try {
             image = new Image(new FileInputStream("resources/Images/happy.png"));//image in alert
@@ -317,8 +323,10 @@ public class MyViewController implements IView, Observer {
     public void help(ActionEvent actionEvent) {
         Alert help = new Alert(Alert.AlertType.INFORMATION,"Help\n" +
                 "The Game:\n" +
-                "The goal of the game is to bring the cat to the fish. Surprisingly.\n" +
-                "\n"+
+                "The goal of the game is to bring the cat to the fish. Surprisingly.\n\n" +
+                "To start a new game press 'New Maze' and insert the desired sizes\n"+
+                "To load a previous game press 'Load Maze' and select your game\n"+
+                "To save the current game (maze and character's position) press ' Save Maze'\n\n" +
                 "How to play: \n" +
                 "Left:          press left-key or 4\n" +
                 "Right:         press right-key or 6\n" +
@@ -328,9 +336,8 @@ public class MyViewController implements IView, Observer {
                 "Up Right:      press 9\n" +
                 "Down Left:     press 1\n" +
                 "Down Right:    press 3\n" +
-                "Or you can simply drag the character with your mouse (click-and-drag)\n" +
-                "\n"+
-                "Some more Info:\n"+
+                "Or you can simply drag the character with your mouse.\n\n" +
+                "MORE BUTTONS!\n"+
                 "If you (are weak and) need a solution, press 'Show Solution'.\n"+
                 "To highlight the character - press 'Where's the cat??' button.\n" +
                 "To highlight the goal      - press 'Where's my FISH??' button.\n" +
