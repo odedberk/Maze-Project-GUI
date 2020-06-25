@@ -118,7 +118,7 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     /**
-     *
+     *gets the mouseEvent from the view and checks with movement to do  and send to the model
      * @param mouseEvent
      * @param playerX
      * @param playerY

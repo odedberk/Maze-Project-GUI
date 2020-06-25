@@ -83,7 +83,7 @@ public class MyViewController implements IView, Observer {
     }
 
     public void showAbout(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Made by: Oded Berkovich and Eilam Gal.");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Made by: Oded Berkovich and Eilam Gal.\n ");
         alert.show();
     }
 
@@ -119,11 +119,12 @@ public class MyViewController implements IView, Observer {
                     gameWon();
                 }
             }
-            if(arg instanceof List){
-                LoadController.setList((LinkedList<String>)arg);
+            if(arg instanceof List){//gets list of saved games
+                LoadController.setList((LinkedList<String>)arg);//update games list in LoadController
             }
         }
     }
+
 
     private void resetMaze() {
         mazeDisplayer.showSolution=false;
@@ -140,7 +141,10 @@ public class MyViewController implements IView, Observer {
         fishBtn.setDisable(false);
     }
 
-
+    /**
+     * inform the user that he won the game.
+     *
+     */
     private void gameWon() {
         mazeDisplayer.setDisable(true);
         solveBtn.setDisable(true);
@@ -148,11 +152,11 @@ public class MyViewController implements IView, Observer {
         fishBtn.setDisable(true);
         saveBtn.setDisable(true);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);//alert to inform the win
         alert.setHeaderText("YOU WON!!\nnow feed me.");
         Image image = null;
         try {
-            image = new Image(new FileInputStream("resources/Images/happy.png"));
+            image = new Image(new FileInputStream("resources/Images/happy.png"));//image in alert
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -161,6 +165,9 @@ public class MyViewController implements IView, Observer {
         alert.showAndWait();
     }
 
+    /**
+    play music in the background
+     */
     public void playMusic() {
         String s = "resources/sounds/background.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
@@ -170,6 +177,9 @@ public class MyViewController implements IView, Observer {
         mediaPlayer.play();
     }
 
+    /**
+     * play wining music
+     */
     private void playMeow() {
         String s = "resources/sounds/meow.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
@@ -192,17 +202,24 @@ public class MyViewController implements IView, Observer {
         viewModel.generateMaze(size[1],size[2]);
     }
 
+    /**
+     * when the user ask for solution or to hide an open solution
+     */
     public void solveMaze(){
         if (mazeDisplayer.showSolution) {
             mazeDisplayer.showSolution = false;
             mazeDisplayer.draw();
         }
         else
-            viewModel.solveMaze();
+            viewModel.solveMaze();//ask for solution
         mazeDisplayer.requestFocus();
 
     }
 
+    /**
+     * handle movement request from the user
+     * @param keyEvent
+     */
     public void keyPressed(KeyEvent keyEvent) {
         if (mazeDisplayer.gotMaze()){
             viewModel.moveCharacter(keyEvent);
@@ -210,6 +227,10 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    /**
+     * open settings window and after generate a new game with the settings values
+     * @param actionEvent
+     */
     public void getSettings(ActionEvent actionEvent) {
         Stage settings = new Stage();
         settings.setMinWidth(250);
@@ -234,10 +255,14 @@ public class MyViewController implements IView, Observer {
         settings.showAndWait();
         //GENERATE MAZE WITH INPUT VALUES
         System.out.println(size[1]+ ", " + size[2]);
-        if (size[0]==1)
+        if (size[0]==1)//if generate button was kicked
             generateMaze();
     }
 
+    /**
+     * open alert with the Properties from Configurations
+     * @param actionEvent
+     */
     public void showProperties(ActionEvent actionEvent) {
         StringBuilder show = new StringBuilder("");
         Set<String> properties = Configurations.getAllProperties();
@@ -249,31 +274,66 @@ public class MyViewController implements IView, Observer {
         alert.show();
     }
 
+
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
     }
 
-
+    /**
+     * highlight the fish picture
+     * @param actionEvent
+     */
     public void showFish(ActionEvent actionEvent) {
         mazeDisplayer.highlightGoal = !mazeDisplayer.highlightGoal;
         mazeDisplayer.draw();
         mazeDisplayer.requestFocus();
     }
 
+    /**
+     * highlight the cat picture
+     * @param actionEvent
+     */
     public void showCat(ActionEvent actionEvent) {
         mazeDisplayer.highlightCharacter = !mazeDisplayer.highlightCharacter;
         mazeDisplayer.draw();
         mazeDisplayer.requestFocus();
     }
 
+    /**
+     * handle movement with the mouse
+     * @param mouseEvent
+     */
     public void dragPlayer(MouseEvent mouseEvent) {
         double playerX = mazeDisplayer.getPlayerX();
         double playerY = mazeDisplayer.getPlayerY();
         double playerHeight = mazeDisplayer.getPlayerHeight();
         double playerWidth = mazeDisplayer.getPlayerWidth();
         if (mazeDisplayer.gotMaze()){
-            viewModel.moveCharacter(mouseEvent,playerX, playerY, playerWidth, playerHeight);
+            viewModel.moveCharacter(mouseEvent,playerX, playerY, playerWidth, playerHeight);//sent viewModel the position of the player in the canvas and the mouseEvent
             mouseEvent.consume();
         }
+    }
+
+    public void help(ActionEvent actionEvent) {
+        Alert help = new Alert(Alert.AlertType.INFORMATION,"Hlep\n" +
+                "The Game: the goal of the game is to bring the cat to the fish.\n" +
+                "\n"+
+                "Playing \n" +
+                "Left: press left-key or 4\n" +
+                "Right: press right-key or 6\n" +
+                "Up:press up-key or \n" +
+                "Down:\n" +
+                "Up Left: press 7\n" +
+                "Up Right: press 9\n" +
+                "Down Left: press 1\n" +
+                "Down Right: press 3\t\n" +
+                "for any of this moves you can click on the position you want to move to and the player will move automatically.\n" +
+                "\n"+
+                "Anther Info"+
+                "if you want to get a solution press the 'Show Solution' button (and if you when to hide it, press 'Show Solution' button again).\n"+
+                "to highlight the goal press the 'Where's the cat??' button.\n" +
+                "to highlight the goal press the 'Where's my FISH??' button.\n" +
+                "to stop the beckruond music press 'Mute' button (and if you when to hear again, press 'Show Solution' button again).");
+        help.show();
     }
 }
