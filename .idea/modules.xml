@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ATP-Project-PartC.iml" filepath="$PROJECT_DIR$/ATP-Project-PartC.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Maven/Project.iml" filepath="$PROJECT_DIR$/Maven/Project.iml" />
     </modules>
   </component>
 </project>
