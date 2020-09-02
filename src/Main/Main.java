@@ -15,6 +15,9 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+/**
+ * Run GUI an play
+ */
 public class Main extends Application {
 
     @Override
@@ -33,7 +36,6 @@ public class Main extends Application {
         MyViewModel viewModel = new MyViewModel(myModel);
         viewController.setViewModel(viewModel);
         viewModel.addObserver(viewController);
-
         viewController.playMusic();
         primaryStage.setTitle("Grumpy Maze");
         primaryStage.setScene(new Scene(root, 350, 500));

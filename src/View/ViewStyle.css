@@ -26,3 +26,10 @@ MenuBar{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 
 }
+
+StackPane{
+    -fx-background-color: linear-gradient(#7ab507,#f5ff71,#f5ff71,#f5ff71,#7ab507);
+    /*-fx-border-color: rgb(49, 89, 23);*/
+    -fx-border-radius: 5;
+
+}
